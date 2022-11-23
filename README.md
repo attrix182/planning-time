@@ -1,24 +1,25 @@
-# Feedbackcito
+# Planning Time
 
-Deploy: https://feedbackcito.com.ar/
+Deploy: https://qa-planningtime.netlify.app
 
-![image](https://user-images.githubusercontent.com/44885834/202235158-9c19d7d2-7855-4a13-a59c-f80c7d267e95.png)
+![image](https://user-images.githubusercontent.com/44885834/203452359-f9b0caf0-5639-405b-92fa-fec058728b00.png)
 
 # Informacion sobre el sitio
-## ¿Que es feedbackito?
-Feedbackito es una plataforma en la que puedes generar una sesión de feedback en simples pasos.
+## ¿Que es Planning time?
+Planning Time es una plataforma web en la que puedes generar una sesión de estimación de tareas en simples pasos.
 
 ## ¿Como funciona?
-Debes ingresar nombre de equipo, nombre de la sesión y fecha, luego se disponibiliza un QR y un Link, los cuales puedes compartir con quienes desees que compartan sus comentarios.
+Debes ingresar nombre de equipo, luego se disponibiliza un QR y un Link, los cuales
+puedes compartir con quienes desees que participen de la estimación.
 
 ## ¿Como surgio?
-Feedbackito surge de la necesidad de generar sesiones de feedback de manera sencilla y rapida, para que los equipos puedan mejorar sus procesos.
+Planning Time surge de la necesidad de obtener y establecer de manera sencilla y rapida un puntaje para cada tarea del sprint.
 
 
 ## Ejecutar en local:
 
-git clone https://github.com/attrix182/feedbackcito.git
-cd feebackito
+git clone https://github.com/attrix182/planning-time.git
+cd planning-time
 npm i
 ng s
 
