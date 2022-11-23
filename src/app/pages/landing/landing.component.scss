@@ -1,0 +1,50 @@
+#landing-image {
+  width: 60vw;
+  height: 100%;
+  background-image: url(../../../assets/img/landing-3.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  background-color: #040d19;
+}
+
+.landing-page {
+  height: 100vh;
+  width: 100vw;
+  background-color: #040d19;
+  display: flex;
+  justify-content: center;
+}
+
+p-card {
+  margin-top: 25px;
+  width: 60vw;
+}
+
+@media (max-width: 800px) {
+  .card {
+    width: 90vw;
+  }
+
+}
+
+p{
+  font-size: 1.3em
+}
+
+h3{
+  font-size: 1.4em
+}
+
+.buttons{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+a{
+  text-decoration: none !important;
+}

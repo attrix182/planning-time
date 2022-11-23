@@ -1,0 +1,51 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  margin: calc(0 + env(safe-area-inset-top)) 0 0 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #040d19;
+  font-family:  'Roboto_Slab';
+  font-weight: 400;
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  input,
+  textarea,
+  button,
+  select,
+  a,
+  .p-dropdown {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+}
+
+.p-button .btn-secundario {
+  margin-top: 20px;
+  background: none;
+  font-size: 16px !important;
+  color: #fcd34d;
+  box-shadow: none;
+  width: 100%;
+  &:hover,
+  &:active,
+  &:enabled {
+    background: none;
+    color: #fcd34d;
+  }
+}
+
+.p-button-outlined {
+  border-color: #fcd34d !important;
+  color: #fcd34d !important;
+}
+
+.p-button.btn-secundario .p-button-label {
+  font-size: 16px;
+}
+
+
+@font-face {
+  font-family: "Roboto_Slab";
+  src: local("Roboto_Slab"), url(./assets/fonts/Roboto_Slab/RobotoSlab-VariableFont_wght.ttf) format("truetype");
+}

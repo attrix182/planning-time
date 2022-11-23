@@ -1,0 +1,46 @@
+<section class="feedback-view" *ngIf="!loading">
+  <div class="card">
+    <button
+      pButton
+      class="mt-4 mb-2 p-button-raised"
+      [ngClass]="event.active ? 'p-button-danger' : 'p-button-info'"
+      (click)="showConfirm()"
+    >
+      {{ event.active ? 'Desactivar sesión' : 'Reactivar sesión' }}
+    </button>
+
+    <div class="title">Resultados</div>
+    <div class="card-header text-center">
+      <div class="sub">{{ event.team }}</div>
+      <div class="sub">{{ event.eventTitle }}</div>
+    </div>
+
+    <div *ngFor="let i of feedback">
+      <div class="card-feedback">
+        <strong class="subtitle-name">{{ i.name }}</strong>
+        <strong class="subtitle-name" *ngIf="!i.name">Anonimo</strong>
+        <p class="subtitle">{{ i.feedback }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<p-toast position="bottom-center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
+  <ng-template let-message pTemplate="message">
+    <div class="flex flex-column" style="flex: 1">
+      <div class="text-center">
+        <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+        <h4>{{ message.summary }}</h4>
+        <p>{{ message.detail }}</p>
+      </div>
+      <div class="grid p-fluid">
+        <div class="col-6">
+          <button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"></button>
+        </div>
+        <div class="col-6">
+          <button type="button" pButton (click)="onConfirm()" label="Si" class="p-button-success"></button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>

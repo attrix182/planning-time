@@ -1,0 +1,28 @@
+
+<p-toast position="top-center" class="p-toast"></p-toast>
+
+<section class="create-form">
+  <div class="card">
+    <div class="title">Crear una sesión</div>
+    <div class="subtitle">Completa el formulario</div>
+    <ng-template pTemplate="header">
+      <!-- <img alt="Card" src="../../../../assets/img/landing-2.svg" /> -->
+    </ng-template>
+
+    <form [formGroup]="formGroup" class="p-fluid p-grid">
+      <!-- Equipo -->
+      <h3 for="">Equipo</h3>
+      <input type="text" placeholder="Equipo" pInputText type="text" formControlName="team"/>
+
+    </form>
+
+    <div class="buttons mt-4">
+      <button pButton class="p-button-raised p-button-warning" (click)="back.emit()">Volver</button>
+      <button pButton class="p-button-raised p-button-warning" [disabled]="!formGroup.valid && loading" (click)="nextStep()">
+        <p-progressSpinner *ngIf="loading"  [style]="{width: '50px', height: '50px'}" fill="white"  styleClass="custom-spinner" strokeWidth="8" ></p-progressSpinner>
+        Siguiente
+      </button>
+    </div>
+  </div>
+</section>
+

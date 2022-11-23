@@ -1,0 +1,52 @@
+.create-form {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+}
+
+.card{
+  min-width: 40vw;
+  min-height: 35vh;
+  background-color: rgb(8,20,38);
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .title{
+    font-size: 2.5em;
+    text-align: start !important;
+  }
+  .subtitle{
+    font-size: 1.3em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .buttons {
+    margin-top: 4em;
+    display: flex;
+    gap: 1.5em;
+    justify-content: center;
+    .p-button {
+      height: 4rem;
+      width: 9rem;
+      font-size: 1.3em;
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+}
+
+@media screen and (max-width: 940px) {
+  .card{
+    min-width: 70vw;
+    min-height: 36vh;
+    background-color: rgb(8,20,38);
+  }
+}
+
+

@@ -1,0 +1,36 @@
+<p-toast  position="top-center"></p-toast>
+
+<section class="create-form">
+  <div class="card">
+    <span class="status" [ngClass]="event.active ? 'active' : 'deactive'">{{
+      event.active ? 'Activado' : 'Desactivado'
+    }}</span>
+    <i
+      class="pi pi-question-circle icon"
+      pTooltip="Puedes compartir el QR o el Link, para que otros puedan participar"
+    ></i>
+    <div class="title">Datos de la sesión</div>
+    {{ event.eventDate }}
+
+    <h2>Equipo: {{ event.team }}</h2>
+    <h3>Evento: {{ event.eventTitle }}</h3>
+
+    <qr-code [value]="this.url" [size]="200" *ngIf="this.url"></qr-code>
+    <div id="eventLink" [ngClass]="copied ? 'copied' : ''" class="subtitle" pTooltip="Puedes utilizar este codigo en la parte Participar, de la home">
+      Código: {{ event.id }}
+    </div>
+
+
+    <div class="buttons mt-4 mb-4">
+      <button pButton class="p-button-raised p-button-primmary" (click)="copyLink()">Copiar link</button>
+      <button
+        pButton
+        class="p-button-raised p-button-primmary"
+        (click)="goToPanel()"
+        pTooltip="Haz click para ir a ver que estan respondiendo"
+      >
+        Ver respuestas
+      </button>
+    </div>
+  </div>
+</section>

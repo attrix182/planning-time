@@ -1,0 +1,51 @@
+<div class="landing-icon" pTooltip="Información sobre la web">
+  <i (click)="goToLanding()" class="pi pi-info-circle"></i>
+</div>
+
+<div class="home-page">
+  <div>
+    <button
+      pButton
+      pRipple
+      class="p-button-raised p-button-warning"
+      (click)="goToLocalEvent()"
+      *ngIf="!succesfullyCreate && eventLocal"
+    >
+      Ir a sesion en curso
+    </button>
+  </div>
+  <section
+    class="welcome-card"
+    *ngIf="!showCreate && !succesfullyCreate && !showParticipate && !loading"
+    [@exitAnimationY]
+  >
+    <h2 class="title text-center">Bienvenido a Planning Time</h2>
+    <div class="subtitle">
+      ¿Que quieres hacer?
+      <div class="buttons">
+        <button pButton pRipple class="p-button-raised p-button-warning" (click)="toggleShowCreate()">Crear</button>
+        <button pButton pRipple class="p-button-raised p-button-warning" (click)="toggleShowParticipate()">
+          Participar
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="showCreate && !loading" [@enterAnimationY]>
+    <fc-create-form (back)="toggleShowCreate()" (nextStep)="handleID($event)"></fc-create-form>
+  </section>
+
+  <section *ngIf="succesfullyCreate && !loading" [@enterAnimationY]>
+    <fc-succesfully-create [event]="event"></fc-succesfully-create>
+  </section>
+
+  <section *ngIf="showParticipate && !succesfullyCreate" [@enterAnimationY]>
+    <fc-participate (back)="toggleShowParticipate()" [id]="passID"></fc-participate>
+  </section>
+
+  <section class="skeleton-container">
+    <p-skeleton *ngIf="loading" class="skeleton" width="45vw" height="60vh"></p-skeleton>
+  </section>
+
+  <div id="landing-image"></div>
+</div>

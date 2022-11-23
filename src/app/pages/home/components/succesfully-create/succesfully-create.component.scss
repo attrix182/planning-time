@@ -1,0 +1,69 @@
+.create-form {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+}
+
+.card {
+width: 90%;
+text-align: center;
+
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+
+  .icon {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    font-size: 2em;
+  }
+
+  .title {
+    font-size: 2em;
+    text-align: center;
+
+  }
+  .subtitle {
+    font-size: 1.1em;
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+
+  .status {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-size: 1.2em;
+  }
+
+  .active {
+    color: forestgreen;
+  }
+
+  .deactive {
+    color: red;
+  }
+
+  .buttons {
+    margin-top: 4em;
+    display: flex;
+    gap: 1.5em;
+    justify-content: center;
+    .p-button {
+      height: 4rem;
+      width: 9rem;
+      font-size: 1em;
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+}
+
+.copied {
+  background-color: #ababffba;
+  transition: all 0.5s linear;
+}
+
