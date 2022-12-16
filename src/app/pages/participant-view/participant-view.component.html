@@ -1,43 +1,22 @@
 <section class="participation-section" *ngIf="!loading">
-  <div class="card"  *ngIf="!loading && event.active">
-    <div class="title">Equipo: {{ event.team }}</div>
-    <div class="subtitle">Evento: {{ event.eventTitle }}</div>
-
-    <form
-     [formGroup]="formGroup"
-    >
-      <span class="p-float-label mb-2">
-        <input style="width: 100%;" formControlName="name" id="float-input" type="text" class="w-100" pInputText />
-        <label for="float-input">Nombre (Opcional)</label>
-      </span>
-      <textarea placeholder="¿Que te gusto?, ¿Que podemos mejorar?..." formControlName="feedback" pInputText name="" id="" cols="30" rows="10"></textarea>
-    </form>
-    <button
-      pButton
-      class="mt-4 mb-2 p-button-raised p-button-primmary"
-      [disabled]="formGroup.invalid && !loadingBtn"
-      (click)="sendFeedback()"
-    >
-    <p-progressSpinner *ngIf="loadingBtn"  [style]="{width: '50px', height: '50px'}" fill="#3e51b5"  styleClass="custom-spinner" strokeWidth="8" ></p-progressSpinner>
-     <div *ngIf="!loadingBtn">Enviar</div>
-    </button>
+  <div class="card-center" *ngIf="!loading && event.active">
+    <div class="title text-dark">Equipo: {{ event.team }}</div>
   </div>
+
+  <section class="options-box card" *ngIf="!loading && event.active">
+    <div *ngFor="let opt of options" class="card" [ngClass]="optionSelected == opt ? 'active': ''" (click)="selectOption(opt)">
+      {{ opt }}
+    </div>
+  </section>
 
   <div *ngIf="!loading && !event.active">
     <div class="card">
       <div class="title">Equipo: {{ event.team }}</div>
       <div class="subtitle">Evento: {{ event.eventTitle }}</div>
       <h1>Esta sesion ya no esta activa</h1>
-      <button
-      pButton
-      class="mt-4 mb-2 p-button-raised p-button-primmary"
-      routerLink="/"
-    >
-      Volver al Home
-    </button>
+      <button pButton class="mt-4 mb-2 p-button-raised p-button-primmary" routerLink="/">Volver al Home</button>
     </div>
   </div>
-
 </section>
 
-<p-toast position="top-center"class="p-toast"></p-toast>
+<p-toast position="top-center" class="p-toast"></p-toast>

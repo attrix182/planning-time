@@ -31,8 +31,6 @@ export class CreateFormComponent extends FormValidator implements OnInit {
   initForm() {
     this.formGroup = this.fb.group({
       team: ['', [Validators.required]],
-      eventTitle: ['', [Validators.required]],
-      eventDate: ['', [Validators.required]]
     });
   }
 

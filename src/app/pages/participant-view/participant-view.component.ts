@@ -18,6 +18,9 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   getId = this.router.url.split('/')[2].trim();
   event: EventSesion;
   override formGroup: any;
+  userName: string = undefined;
+  options:string[]= ['1','2','3','5','8','13','?']
+  optionSelected:string = undefined;
 
   constructor(
     private storageSvc: StorageService,
@@ -33,6 +36,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   ngOnInit(): void {
     this.getSesion();
     this.initForm();
+    this.setActiveUserInSesion();
   }
 
   definirMensajesError(): void {}
@@ -45,7 +49,6 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   }
 
   sendFeedback() {
-
     this.loadingBtn = true;
     this.formGroup.value.id = this.getId;
 
@@ -74,6 +77,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
       this.loading = false;
       this.validate();
     });
+    this.getUserActive();
   }
 
   validate() {
@@ -81,5 +85,35 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     if (!this.event) {
       this.router.navigateByUrl('');
     }
+  }
+
+  selectOption(opt:string){
+    this.optionSelected = opt
+  }
+
+  getUserActive() {
+    this.userName = localStorage.getItem('user-name');
+    if (!this.userName) {
+      this.userName = prompt('Ingrese su nombre a mostrar:');
+      localStorage.setItem('user-name', this.userName);
+    }
+  }
+
+  setActiveUserInSesion() {
+    let active = true
+    let user = { name: this.userName, active: active, sesion: this.getId.trim() };
+    console.log(user);
+    this.storageSvc.Insert('activeUsers', user).then((res: any) => {
+      console.log(res);
+    });
+  }
+
+  setInactiveUserInSesion() {
+    let active = false
+    let user = { name: this.userName, active: active, sesion: this.getId.trim() };
+    console.log(user);
+    this.storageSvc.Insert('activeUsers', user).then((res: any) => {
+      console.log(res);
+    });
   }
 }
