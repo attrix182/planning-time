@@ -1,4 +1,12 @@
 <section class="participation-section" *ngIf="!loading">
+
+  <section class="actions-box card" *ngIf="!loading && event.active">
+    <button pButton pRipple class="p-button-raised p-button-warning" >Mostrar resultados</button>
+    
+    <button pButton pRipple class="p-button-raised p-button-warning" >Reiniciar</button>
+  </section>
+
+
   <div class="card-center" *ngIf="!loading && event.active">
     <div class="title text-dark">Equipo: {{ event.team }}</div>
   </div>

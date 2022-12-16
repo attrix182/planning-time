@@ -19,8 +19,8 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   event: EventSesion;
   override formGroup: any;
   userName: string = undefined;
-  options:string[]= ['1','2','3','5','8','13','?']
-  optionSelected:string = undefined;
+  options: string[] = ['1', '2', '3', '5', '8', '13', '?'];
+  optionSelected: string = undefined;
 
   constructor(
     private storageSvc: StorageService,
@@ -87,8 +87,12 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     }
   }
 
-  selectOption(opt:string){
-    this.optionSelected = opt
+  selectOption(opt: string) {
+    this.optionSelected = opt;
+    let result = { user: this.userName, vote: this.optionSelected, sesion: this.getId.trim() };
+    this.storageSvc.Insert('results', result).then(() => {
+      console.log('Save response');
+    });
   }
 
   getUserActive() {
@@ -100,7 +104,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   }
 
   setActiveUserInSesion() {
-    let active = true
+    let active = true;
     let user = { name: this.userName, active: active, sesion: this.getId.trim() };
     console.log(user);
     this.storageSvc.Insert('activeUsers', user).then((res: any) => {
@@ -109,7 +113,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   }
 
   setInactiveUserInSesion() {
-    let active = false
+    let active = false;
     let user = { name: this.userName, active: active, sesion: this.getId.trim() };
     console.log(user);
     this.storageSvc.Insert('activeUsers', user).then((res: any) => {
