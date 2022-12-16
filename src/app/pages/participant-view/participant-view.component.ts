@@ -21,6 +21,8 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   userName: string = undefined;
   options: string[] = ['1', '2', '3', '5', '8', '13', '?'];
   optionSelected: string = undefined;
+  results: any[];
+  promedio: number = 0;
 
   constructor(
     private storageSvc: StorageService,
@@ -55,7 +57,6 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     this.storageSvc
       .InsertCustomID('feedbacks', this.cloudFireStore.createId(), this.formGroup.value)
       .then((res: any) => {
-        console.log(res);
         this.messageSvc.add({ severity: 'success', summary: 'Exito', detail: 'Gracias por tu feedback' });
         this.formGroup.reset();
         this.loading = false;
@@ -72,7 +73,6 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     let aux = this.getId.trim();
 
     this.storageSvc.GetByParameter('events', 'id', aux).subscribe((res: any) => {
-      console.log(res[0]);
       this.event = res[0];
       this.loading = false;
       this.validate();
@@ -81,18 +81,9 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   }
 
   validate() {
-    console.log(this.event);
     if (!this.event) {
       this.router.navigateByUrl('');
     }
-  }
-
-  selectOption(opt: string) {
-    this.optionSelected = opt;
-    let result = { user: this.userName, vote: this.optionSelected, sesion: this.getId.trim() };
-    this.storageSvc.Insert('results', result).then(() => {
-      console.log('Save response');
-    });
   }
 
   getUserActive() {
@@ -106,18 +97,36 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   setActiveUserInSesion() {
     let active = true;
     let user = { name: this.userName, active: active, sesion: this.getId.trim() };
-    console.log(user);
-    this.storageSvc.Insert('activeUsers', user).then((res: any) => {
-      console.log(res);
-    });
+    this.storageSvc.Insert('activeUsers', user).then((res: any) => {});
   }
 
   setInactiveUserInSesion() {
     let active = false;
     let user = { name: this.userName, active: active, sesion: this.getId.trim() };
-    console.log(user);
-    this.storageSvc.Insert('activeUsers', user).then((res: any) => {
-      console.log(res);
+    this.storageSvc.Insert('activeUsers', user).then((res: any) => {});
+  }
+
+  selectOption(opt: string) {
+    this.optionSelected = opt;
+    let result = { user: this.userName, vote: this.optionSelected, sesion: this.getId.trim() };
+    this.storageSvc.Insert(this.getId.trim(), result).then(() => {});
+  }
+  getResults() {
+    this.storageSvc.GetAll(this.getId.trim()).subscribe((res: any) => {
+      this.results = res;
+      this.calcularPromedio()
     });
+  }
+
+  calcularPromedio(){
+    let total = 0
+    this.results.forEach((v)=> {total +=  parseInt(v.vote)})
+    console.log(total)
+    this.promedio = total / this.results.length
+  }
+
+  restart() {
+    this.optionSelected = undefined;
+    this.storageSvc.DeleteColecction(this.getId.trim());
   }
 }

@@ -1,14 +1,20 @@
 <section class="participation-section" *ngIf="!loading">
 
   <section class="actions-box card" *ngIf="!loading && event.active">
-    <button pButton pRipple class="p-button-raised p-button-warning" >Mostrar resultados</button>
+    <button pButton pRipple class="p-button-raised p-button-warning" (click)="getResults()">Mostrar resultados</button>
     
-    <button pButton pRipple class="p-button-raised p-button-warning" >Reiniciar</button>
+    <button pButton pRipple class="p-button-raised p-button-warning" (click)="restart()">Reiniciar</button>
   </section>
 
 
   <div class="card-center" *ngIf="!loading && event.active">
-    <div class="title text-dark">Equipo: {{ event.team }}</div>
+    <div class="title text-dark p-4" >¡Elije una carta!</div>
+    <div *ngFor="let res of results">
+    {{res.user}} voto: {{res.vote}}
+    </div>
+   <div class="promedio" *ngIf="promedio"> 
+    Promedio: {{promedio.toFixed(2)}}
+   </div> 
   </div>
 
   <section class="options-box card" *ngIf="!loading && event.active">

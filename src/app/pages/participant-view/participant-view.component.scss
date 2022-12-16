@@ -1,10 +1,11 @@
 .participation-section {
-  background-color: rgb(239, 237, 237);
+
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   padding: 40px;
+  background-color: #040d19;
 }
 
 .card-center {
@@ -59,11 +60,17 @@
   gap: 20px;
 }
 
+.promedio{
+  font-size: 2em;
+}
+
 .skeleton-container {
   margin-top: 20vh;
   display: flex;
   margin-left: 2vw;
 }
+
+
 
 @media screen and (max-width: 940px) {
   .participation-section {
