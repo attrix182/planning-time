@@ -12,11 +12,11 @@
     </span>
 
     <div class="buttons mt-4 mb-2">
-      <button pButton class="p-button-raised p-button-warning" (click)="goBack.emit()">Volver</button>
+      <button pButton class="p-button-raised p-button-primary" (click)="goBack.emit()">Volver</button>
       <button
         [disabled]="sesionId?.length > 5 ? false : true"
         pButton
-        class="p-button-raised p-button-warning"
+        class="p-button-raised p-button-primary"
         (click)="goToSesion()"
       >
         Ingresar

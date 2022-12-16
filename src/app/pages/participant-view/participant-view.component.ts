@@ -4,6 +4,7 @@ import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { EventSesion } from 'src/app/models/event.model';
+import { AlertService } from 'src/app/services/alerts.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { FormValidator } from 'src/app/shared/primeng/form.validator';
 
@@ -18,18 +19,20 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   getId = this.router.url.split('/')[2].trim();
   event: EventSesion;
   override formGroup: any;
-  userName: string = undefined;
+  userName: any = undefined;
   options: string[] = ['1', '2', '3', '5', '8', '13', '?'];
   optionSelected: string = undefined;
-  results: any[];
+  results: any[] = [];
   promedio: number = 0;
+  showResults: boolean = false;
 
   constructor(
     private storageSvc: StorageService,
     private router: Router,
     private fb: UntypedFormBuilder,
     private messageSvc: MessageService,
-    private cloudFireStore: AngularFirestore
+    private cloudFireStore: AngularFirestore,
+    private alertService: AlertService
   ) {
     super();
     this.loading = true;
@@ -76,6 +79,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
       this.event = res[0];
       this.loading = false;
       this.validate();
+      this.getResults();
     });
     this.getUserActive();
   }
@@ -86,10 +90,10 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     }
   }
 
-  getUserActive() {
+  async getUserActive() {
     this.userName = localStorage.getItem('user-name');
     if (!this.userName) {
-      this.userName = prompt('Ingrese su nombre a mostrar:');
+      await this.alertService.promptAlert().then((name: any) => (this.userName = name.value)); //prompt('Ingrese su nombre a mostrar:');
       localStorage.setItem('user-name', this.userName);
     }
   }
@@ -109,23 +113,36 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   selectOption(opt: string) {
     this.optionSelected = opt;
     let result = { user: this.userName, vote: this.optionSelected, sesion: this.getId.trim() };
+    let exist = this.results.findIndex((r) => r.user == result.user);
+    if (exist != -1) return;
     this.storageSvc.Insert(this.getId.trim(), result).then(() => {});
   }
+
   getResults() {
     this.storageSvc.GetAll(this.getId.trim()).subscribe((res: any) => {
       this.results = res;
-      this.calcularPromedio()
+      this.calcularPromedio();
     });
   }
 
-  calcularPromedio(){
-    let total = 0
-    this.results.forEach((v)=> {total +=  parseInt(v.vote)})
-    console.log(total)
-    this.promedio = total / this.results.length
+  presentResults(){
+    this.showResults = true;
+  }
+
+  hideResults() {
+    this.showResults = false;
+  }
+
+  calcularPromedio() {
+    let total = 0;
+    this.results.forEach((v) => {
+      total += v.vote != '?' ? parseInt(v.vote) : 0;
+    });
+    this.promedio = total / this.results.length;
   }
 
   restart() {
+    this.showResults = false;
     this.optionSelected = undefined;
     this.storageSvc.DeleteColecction(this.getId.trim());
   }

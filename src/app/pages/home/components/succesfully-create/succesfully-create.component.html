@@ -13,7 +13,7 @@
     {{ event.eventDate }}
 
     <h2>Equipo: {{ event.team }}</h2>
-    <h3>Evento: {{ event.eventTitle }}</h3>
+
 
     <qr-code [value]="this.url" [size]="200" *ngIf="this.url"></qr-code>
     <div id="eventLink" [ngClass]="copied ? 'copied' : ''" class="subtitle" pTooltip="Puedes utilizar este codigo en la parte Participar, de la home">
@@ -22,14 +22,13 @@
 
 
     <div class="buttons mt-4 mb-4">
-      <button pButton class="p-button-raised p-button-warning" (click)="copyLink()">Copiar link</button>
+      <button pButton class="p-button-raised p-button-primary" (click)="copyLink()">Copiar link</button>
       <button
         pButton
-        class="p-button-raised p-button-warning"
+        class="p-button-raised p-button-primary"
         (click)="goToPanel()"
-        pTooltip="Haz click para ir a ver que estan respondiendo"
       >
-        Ver respuestas
+        Ir al tablero
       </button>
     </div>
   </div>

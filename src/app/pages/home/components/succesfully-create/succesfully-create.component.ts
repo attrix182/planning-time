@@ -46,6 +46,6 @@ export class SuccesfullyCreateComponent {
   }
 
   goToPanel() {
-    window.open('https://feedbackcito.com.ar/#/results/' + this.event.id);
+    window.open('https://qa-planningtime.netlify.app/#/sesion/' + this.event.id);
   }
 }
