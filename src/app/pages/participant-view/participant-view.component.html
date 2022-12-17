@@ -1,10 +1,21 @@
 <section class="participation-section" *ngIf="!loading">
   <section class="actions-box card" *ngIf="!loading && event.active">
-    <button pButton pRipple class="p-button-raised p-button-primary" (click)="showResults ? hideResults(): presentResults()">
+    <button
+      pButton
+      pRipple
+      class="p-button-raised p-button-primary"
+      (click)="showResults ? hideResults() : presentResults()"
+    >
       {{ showResults ? 'Ocultar resultados' : 'Mostrar resultados' }}
     </button>
 
     <button pButton pRipple class="p-button-raised p-button-primary" (click)="restart()">Reiniciar</button>
+  </section>
+
+  <section class="users-box" *ngIf="!loading && activeUsers">
+    <div *ngFor="let user of activeUsers" class="card">
+      {{ user.name }}
+    </div>
   </section>
 
   <div class="card-center" *ngIf="!loading && event.active">

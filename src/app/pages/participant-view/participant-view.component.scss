@@ -1,5 +1,4 @@
 .participation-section {
-
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -38,7 +37,7 @@
 .card :hover {
   box-shadow: 1px 1px 25px #9a9999;
 }
-.active{
+.active {
   box-shadow: 1px 1px 25px #9a9999;
 }
 
@@ -60,7 +59,7 @@
   gap: 20px;
 }
 
-.promedio{
+.promedio {
   font-size: 1.8em;
 }
 
@@ -70,7 +69,14 @@
   margin-left: 2vw;
 }
 
-
+.users-box {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 5px;
+}
 
 @media screen and (max-width: 940px) {
   .participation-section {

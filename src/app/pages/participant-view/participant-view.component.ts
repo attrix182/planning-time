@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -25,6 +25,11 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   results: any[] = [];
   promedio: number = 0;
   showResults: boolean = false;
+  activeUsers: any[] = undefined;
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunloadHandler(event): void {
+    this.setInactiveUserInSesion();
+  }
 
   constructor(
     private storageSvc: StorageService,
@@ -41,7 +46,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   ngOnInit(): void {
     this.getSesion();
     this.initForm();
-    this.setActiveUserInSesion();
+    this.getActiveUsers();
   }
 
   definirMensajesError(): void {}
@@ -53,21 +58,13 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     });
   }
 
-  sendFeedback() {
-    this.loadingBtn = true;
-    this.formGroup.value.id = this.getId;
-
-    this.storageSvc
-      .InsertCustomID('feedbacks', this.cloudFireStore.createId(), this.formGroup.value)
-      .then((res: any) => {
-        this.messageSvc.add({ severity: 'success', summary: 'Exito', detail: 'Gracias por tu feedback' });
-        this.formGroup.reset();
-        this.loading = false;
-        this.loadingBtn = false;
-        setTimeout(() => {
-          this.router.navigateByUrl('');
-        }, 1500);
-      });
+  getActiveUsers() {
+    console.log(this.getId)
+    this.storageSvc.GetByParameter('activeUsers', 'sesion', this.getId).subscribe((u) => {
+      this.activeUsers = u;
+      console.log(u);
+      this.setActiveUserInSesion();
+    });
   }
 
   getSesion() {
@@ -92,22 +89,33 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
 
   async getUserActive() {
     this.userName = localStorage.getItem('user-name');
+
     if (!this.userName) {
       await this.alertService.promptAlert().then((name: any) => (this.userName = name.value)); //prompt('Ingrese su nombre a mostrar:');
       localStorage.setItem('user-name', this.userName);
+      this.setActiveUserInSesion();
+    }else{
+      this.setActiveUserInSesion();
     }
+ 
   }
 
   setActiveUserInSesion() {
+    if(this.activeUsers == undefined) return;
     let active = true;
-    let user = { name: this.userName, active: active, sesion: this.getId.trim() };
-    this.storageSvc.Insert('activeUsers', user).then((res: any) => {});
+    let user = { name: this.userName, active, sesion: this.getId.trim() };
+    let exist = this.activeUsers.findIndex((u) => (u.name == this.userName));
+    console.log(exist);
+    if (!user.name) return;
+    if (exist == -1) {this.storageSvc.Insert('activeUsers',user)}; 
   }
 
   setInactiveUserInSesion() {
     let active = false;
     let user = { name: this.userName, active: active, sesion: this.getId.trim() };
-    this.storageSvc.Insert('activeUsers', user).then((res: any) => {});
+    let exist = this.activeUsers.findIndex((u) => (u.name == this.userName && u.sesion == this.getId.trim()));
+    if (!user.name) return;
+    if (exist == -1) this.storageSvc.Update('activeUsers', this.activeUsers[exist].id,user)
   }
 
   selectOption(opt: string) {
@@ -125,7 +133,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     });
   }
 
-  presentResults(){
+  presentResults() {
     this.showResults = true;
   }
 
