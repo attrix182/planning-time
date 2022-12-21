@@ -1,5 +1,4 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -15,7 +14,6 @@ import { FormValidator } from 'src/app/shared/primeng/form.validator';
 })
 export class ParticipantViewComponent extends FormValidator implements OnInit {
   loading: boolean = false;
-  loadingBtn: boolean = false;
   getId = this.router.url.split('/')[2].trim();
   event: EventSesion;
   override formGroup: any;
@@ -35,7 +33,8 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     private storageSvc: StorageService,
     private router: Router,
     private fb: UntypedFormBuilder,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private messageService: MessageService,
   ) {
     super();
     this.loading = true;
@@ -46,7 +45,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     this.getInfo();
   }
 
-  getInfo(){
+  getInfo() {
     this.getSesion();
     this.getActiveUsers();
     this.getResultsVisibility();
@@ -72,7 +71,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   getSesion() {
     this.loading = true;
 
-    let aux = this.getId.trim();
+    let aux = this.getId
 
     this.storageSvc.GetByParameter('events', 'id', aux).subscribe((res: any) => {
       this.event = res[0];
@@ -93,7 +92,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     this.userName = localStorage.getItem('user-name');
 
     if (!this.userName) {
-      await this.alertService.promptAlert().then((name: any) => (this.userName = name.value)); //prompt('Ingrese su nombre a mostrar:');
+      await this.alertService.promptAlert().then((name: any) => (this.userName = name.value));
       localStorage.setItem('user-name', this.userName);
       this.setActiveUserInSesion();
     } else {
@@ -104,7 +103,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   setActiveUserInSesion() {
     if (this.activeUsers == undefined) return;
     let active = true;
-    let user = { name: this.userName, active, sesion: this.getId.trim() };
+    let user = { name: this.userName, active, sesion: this.getId };
     let exist = this.activeUsers.findIndex((u) => u.name == this.userName);
     if (!user.name) return;
     if (exist == -1) {
@@ -114,33 +113,41 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
 
   setInactiveUserInSesion() {
     let active = false;
-    let user = { name: this.userName, active: active, sesion: this.getId.trim() };
-    let exist = this.activeUsers.findIndex((u) => u.name == this.userName && u.sesion == this.getId.trim());
+    let user = { name: this.userName, active: active, sesion: this.getId};
+    let exist = this.activeUsers.findIndex((u) => u.name == this.userName && u.sesion == this.getId);
     if (!user.name) return;
     if (exist == -1) this.storageSvc.Update('activeUsers', this.activeUsers[exist].id, user);
   }
 
   selectOption(opt: string) {
+    if (this.optionSelected){
+      this.areVotedMsg();
+      return;
+    } 
     this.optionSelected = opt;
-    let result = { user: this.userName, vote: this.optionSelected, sesion: this.getId.trim() };
+    let result = { user: this.userName, vote: this.optionSelected, sesion: this.getId };
     let exist = this.results.findIndex((r) => r.user == result.user);
     if (exist != -1) return;
-    this.storageSvc.Insert(this.getId.trim(), result).then(() => {});
+    this.storageSvc.Insert(this.getId, result).then(() => {});
+  }
+
+  areVotedMsg(){
+    this.messageService.clear();
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No puedes cambiar tu voto' });
   }
 
   getResults() {
-    this.storageSvc.GetAll(this.getId.trim()).subscribe((res: any) => {
+    this.storageSvc.GetAll(this.getId).subscribe((res: any) => {
       this.results = res;
+
+      this.restartAnswered();
       this.setAnswered();
       this.calcularPromedio();
     });
   }
 
-
-
-
   getResultsVisibility() {
-    this.storageSvc.GetByParameter('events', 'id', this.getId.trim()).subscribe((res: any) => {
+    this.storageSvc.GetByParameter('events', 'id', this.getId).subscribe((res: any) => {
       this.event = res[0];
       this.showResults = this.event.resultsVisibility;
     });
@@ -168,6 +175,13 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   }
 
   setAnswered() {
+   if(this.results.length == 0) this.restartAnswered();
+    this.results.forEach((r) => {
+      if (r.user == this.userName) {
+        this.optionSelected = r.vote;
+      }
+    });
+
     this.activeUsers.forEach((user) => {
       this.results.forEach((item) => {
         if (user.name == item.user) {
@@ -177,21 +191,25 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     });
   }
 
-  restartAnswered(){
+  restartAnswered() {
+    this.optionSelected = undefined;
+
     this.activeUsers.forEach((user) => {
       user.answer = false;
-      
     });
   }
 
   restart() {
-    this.optionSelected = undefined;
-    this.hideResults();
-    this.storageSvc.Update(this.getId, 'events', event);
-    this.storageSvc.DeleteColecction(this.getId.trim()).then(() => {
-      this.restartAnswered();
-      this.getInfo();
+    if (this.results.length == 0) return;
+    this.alertService.confirmAlert('¿Desea reiniciar la votación?').then((confirm) => {
+      if (confirm) {
+        this.hideResults();
+        this.storageSvc.DeleteColecction(this.getId.trim()).then(() => {
+          this.restartAnswered();
+          this.getInfo();
+          this.optionSelected = undefined;
+        });
+      }
     });
-
   }
 }

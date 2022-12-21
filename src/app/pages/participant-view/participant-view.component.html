@@ -1,19 +1,25 @@
+<p-toast position="top-center" class="p-toast"></p-toast>
+
+
 <section class="participation-section" *ngIf="!loading">
   <section class="actions-box card" *ngIf="!loading && event.active">
-    <button
-      pButton
-      pRipple
-      class="p-button-raised p-button-primary"
-      (click)="showResults ? hideResults() : presentResults()"
-    >
-      {{ showResults ? 'Ocultar resultados' : 'Mostrar resultados' }}
+    <button *ngIf="!showResults" pButton pRipple class="p-button-raised p-button-primary" (click)="presentResults()">
+      Mostrar resultados
+      <i class="ml-2 pi pi-eye"></i>
     </button>
 
-    <button pButton pRipple class="p-button-raised p-button-primary" (click)="restart()">Reiniciar</button>
+    <button *ngIf="showResults" pButton pRipple class="p-button-raised p-button-primary" (click)="hideResults()">
+      Ocultar resultados
+      <i class="ml-2 pi pi-eye-slash"></i>
+    </button>
+
+    <button [disabled]="results.length == 0" pButton pRipple class="p-button-raised p-button-primary" (click)="restart()">Reiniciar
+      <i class="ml-2 pi pi-refresh"></i>
+    </button>
   </section>
 
   <section class="users-box" *ngIf="!loading && activeUsers">
-    <div *ngFor="let user of activeUsers" class="card" [ngClass]="user.answer ? 'answer':''">
+    <div *ngFor="let user of activeUsers" class="card" [ngClass]="user.answer ? 'answer' : ''">
       {{ user.name }}
     </div>
   </section>

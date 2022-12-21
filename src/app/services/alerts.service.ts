@@ -67,10 +67,10 @@ export class AlertService {
     });
   }
 
-  confirmAlert() {
+  confirmAlert(messagge:string) {
     return new Promise((resolve) => {
       Swal.fire({
-        title: '¿Esta seguro?',
+        title: messagge,
         showDenyButton: true,
         reverseButtons: true,
         confirmButtonText: 'Si',
