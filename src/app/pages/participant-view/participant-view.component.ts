@@ -35,8 +35,6 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     private storageSvc: StorageService,
     private router: Router,
     private fb: UntypedFormBuilder,
-    private messageSvc: MessageService,
-    private cloudFireStore: AngularFirestore,
     private alertService: AlertService
   ) {
     super();
@@ -44,9 +42,14 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSesion();
     this.initForm();
+    this.getInfo();
+  }
+
+  getInfo(){
+    this.getSesion();
     this.getActiveUsers();
+    this.getResultsVisibility();
   }
 
   definirMensajesError(): void {}
@@ -59,10 +62,9 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   }
 
   getActiveUsers() {
-    console.log(this.getId)
+    console.log(this.getId);
     this.storageSvc.GetByParameter('activeUsers', 'sesion', this.getId).subscribe((u) => {
       this.activeUsers = u;
-      console.log(u);
       this.setActiveUserInSesion();
     });
   }
@@ -94,28 +96,28 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
       await this.alertService.promptAlert().then((name: any) => (this.userName = name.value)); //prompt('Ingrese su nombre a mostrar:');
       localStorage.setItem('user-name', this.userName);
       this.setActiveUserInSesion();
-    }else{
+    } else {
       this.setActiveUserInSesion();
     }
- 
   }
 
   setActiveUserInSesion() {
-    if(this.activeUsers == undefined) return;
+    if (this.activeUsers == undefined) return;
     let active = true;
     let user = { name: this.userName, active, sesion: this.getId.trim() };
-    let exist = this.activeUsers.findIndex((u) => (u.name == this.userName));
-    console.log(exist);
+    let exist = this.activeUsers.findIndex((u) => u.name == this.userName);
     if (!user.name) return;
-    if (exist == -1) {this.storageSvc.Insert('activeUsers',user)}; 
+    if (exist == -1) {
+      this.storageSvc.Insert('activeUsers', user);
+    }
   }
 
   setInactiveUserInSesion() {
     let active = false;
     let user = { name: this.userName, active: active, sesion: this.getId.trim() };
-    let exist = this.activeUsers.findIndex((u) => (u.name == this.userName && u.sesion == this.getId.trim()));
+    let exist = this.activeUsers.findIndex((u) => u.name == this.userName && u.sesion == this.getId.trim());
     if (!user.name) return;
-    if (exist == -1) this.storageSvc.Update('activeUsers', this.activeUsers[exist].id,user)
+    if (exist == -1) this.storageSvc.Update('activeUsers', this.activeUsers[exist].id, user);
   }
 
   selectOption(opt: string) {
@@ -129,16 +131,32 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   getResults() {
     this.storageSvc.GetAll(this.getId.trim()).subscribe((res: any) => {
       this.results = res;
+      this.setAnswered();
       this.calcularPromedio();
     });
   }
 
+
+
+
+  getResultsVisibility() {
+    this.storageSvc.GetByParameter('events', 'id', this.getId.trim()).subscribe((res: any) => {
+      this.event = res[0];
+      this.showResults = this.event.resultsVisibility;
+    });
+  }
+
   presentResults() {
+    this.event.resultsVisibility = true;
+    this.storageSvc.Update(this.getId, 'events', this.event);
     this.showResults = true;
   }
 
   hideResults() {
+    this.event.resultsVisibility = false;
+    this.storageSvc.Update(this.getId, 'events', this.event);
     this.showResults = false;
+    this.restartAnswered();
   }
 
   calcularPromedio() {
@@ -149,9 +167,31 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     this.promedio = total / this.results.length;
   }
 
+  setAnswered() {
+    this.activeUsers.forEach((user) => {
+      this.results.forEach((item) => {
+        if (user.name == item.user) {
+          user.answer = true;
+        }
+      });
+    });
+  }
+
+  restartAnswered(){
+    this.activeUsers.forEach((user) => {
+      user.answer = false;
+      
+    });
+  }
+
   restart() {
-    this.showResults = false;
     this.optionSelected = undefined;
-    this.storageSvc.DeleteColecction(this.getId.trim());
+    this.hideResults();
+    this.storageSvc.Update(this.getId, 'events', event);
+    this.storageSvc.DeleteColecction(this.getId.trim()).then(() => {
+      this.restartAnswered();
+      this.getInfo();
+    });
+
   }
 }

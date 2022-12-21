@@ -13,7 +13,7 @@
   </section>
 
   <section class="users-box" *ngIf="!loading && activeUsers">
-    <div *ngFor="let user of activeUsers" class="card">
+    <div *ngFor="let user of activeUsers" class="card" [ngClass]="user.answer ? 'answer':''">
       {{ user.name }}
     </div>
   </section>

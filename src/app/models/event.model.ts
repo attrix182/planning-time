@@ -5,4 +5,5 @@ export interface EventSesion{
   eventTeam: string;
   team:string;
   active:boolean;
+  resultsVisibility:boolean;
 }
