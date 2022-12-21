@@ -55,7 +55,8 @@
   justify-content: center;
   flex-direction: row;
   position: absolute;
-  bottom: 20vh;
+  flex-wrap: wrap;
+  bottom: 15vh;
   gap: 20px;
 }
 
@@ -71,10 +72,11 @@
 
 .users-box {
   position: absolute;
-  bottom: 20px;
+  bottom: 18px;
   display: flex;
   justify-content: center;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 5px;
 }
 
