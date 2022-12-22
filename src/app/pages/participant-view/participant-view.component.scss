@@ -80,8 +80,14 @@
   gap: 5px;
 }
 
-.answer{
+.answer {
   background-color: #3749a8;
+}
+
+.user-icon {
+  position: absolute;
+  right: 0;
+  padding: 10px;
 }
 
 @media screen and (max-width: 940px) {
@@ -91,5 +97,14 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .options-box {
+    bottom: 20vh;
+  }
+  .card {
+    padding: 13px;
   }
 }

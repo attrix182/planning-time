@@ -34,7 +34,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     private router: Router,
     private fb: UntypedFormBuilder,
     private alertService: AlertService,
-    private messageService: MessageService,
+    private messageService: MessageService
   ) {
     super();
     this.loading = true;
@@ -49,6 +49,12 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     this.getSesion();
     this.getActiveUsers();
     this.getResultsVisibility();
+  }
+
+  changeName() {
+    localStorage.removeItem('user-name');
+    this.userName = undefined;
+    this.getUserActive();
   }
 
   definirMensajesError(): void {}
@@ -71,7 +77,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   getSesion() {
     this.loading = true;
 
-    let aux = this.getId
+    let aux = this.getId;
 
     this.storageSvc.GetByParameter('events', 'id', aux).subscribe((res: any) => {
       this.event = res[0];
@@ -113,17 +119,17 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
 
   setInactiveUserInSesion() {
     let active = false;
-    let user = { name: this.userName, active: active, sesion: this.getId};
+    let user = { name: this.userName, active: active, sesion: this.getId };
     let exist = this.activeUsers.findIndex((u) => u.name == this.userName && u.sesion == this.getId);
     if (!user.name) return;
     if (exist == -1) this.storageSvc.Update('activeUsers', this.activeUsers[exist].id, user);
   }
 
   selectOption(opt: string) {
-    if (this.optionSelected){
+    if (this.optionSelected) {
       this.areVotedMsg();
       return;
-    } 
+    }
     this.optionSelected = opt;
     let result = { user: this.userName, vote: this.optionSelected, sesion: this.getId };
     let exist = this.results.findIndex((r) => r.user == result.user);
@@ -131,7 +137,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     this.storageSvc.Insert(this.getId, result).then(() => {});
   }
 
-  areVotedMsg(){
+  areVotedMsg() {
     this.messageService.clear();
     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No puedes cambiar tu voto' });
   }
@@ -175,7 +181,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   }
 
   setAnswered() {
-   if(this.results.length == 0) this.restartAnswered();
+    if (this.results.length == 0) this.restartAnswered();
     this.results.forEach((r) => {
       if (r.user == this.userName) {
         this.optionSelected = r.vote;
@@ -193,7 +199,6 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
 
   restartAnswered() {
     this.optionSelected = undefined;
-
     this.activeUsers.forEach((user) => {
       user.answer = false;
     });
