@@ -52,8 +52,29 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   }
 
   changeName() {
+    if (this.optionSelected) {
+      this.cantVote();
+      return;
+    }
     localStorage.removeItem('user-name');
-    this.userName = undefined;
+
+    this.removeUser(this.getUser().id);
+  }
+
+  cantVote() {
+    this.messageService.clear();
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No puedes cambiar tu nombre si votaste' });
+  }
+
+  getUser() {
+    return this.activeUsers.find((u) => u.name == this.userName);
+  }
+
+  removeUser(id: string) {
+    this.storageSvc.Delete('activeUsers', id).then(() => {
+      this.optionSelected = undefined;
+      this.userName = undefined;
+    });
     this.getUserActive();
   }
 
@@ -126,15 +147,50 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   }
 
   selectOption(opt: string) {
-    if (this.optionSelected) {
-      this.areVotedMsg();
+ 
+
+    if (this.showResults) {
+      this.cantVoteShowResults();
       return;
     }
+    if (this.optionSelected) {
+      this.areVotedMsg();
+     /*  let result = { user: this.userName, vote: opt, sesion: this.getId };
+      let exist = this.results.findIndex((r) => r.user == result.user);
+
+      if (exist != -1) return;
+      this.deleteVoteByUser(this.userName);
+      this.storageSvc.Insert(this.getId, result); */
+      return;
+    }
+
     this.optionSelected = opt;
+
     let result = { user: this.userName, vote: this.optionSelected, sesion: this.getId };
     let exist = this.results.findIndex((r) => r.user == result.user);
     if (exist != -1) return;
-    this.storageSvc.Insert(this.getId, result).then(() => {});
+    this.storageSvc.Insert(this.getId, result);
+  }
+
+  //deprecated
+  deleteVoteByUser(userName: string) {
+    this.storageSvc.GetByParameter(this.getId, 'user', userName).subscribe((res: any) => {
+      console.log(res);
+      this.storageSvc.Delete(this.getId, res[0].id).then(() => {
+        this.getResults();
+      }
+    );
+    });
+  }
+
+  cantVoteShowResults() {
+    this.messageService.clear();
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: 'No puedes votar mientras los resultados son visibles'
+    });
+    return;
   }
 
   areVotedMsg() {

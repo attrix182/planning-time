@@ -1,9 +1,9 @@
 <p-toast position="top-center" class="p-toast"></p-toast>
 
-<!-- <section class="user-icon">
+ <section class="user-icon">
   <button (click)="changeName()" pTooltip="Cambia tu nombre" pButton pRipple type="button" icon="pi pi-user" class=" p-button-primary p-button-rounded p-button-outlined"></button>
 </section>
- -->
+
 <section class="participation-section" *ngIf="!loading">
   <section class="actions-box card" *ngIf="!loading && event.active">
     <button *ngIf="!showResults" pButton pRipple class="p-button-raised p-button-primary" (click)="presentResults()">
