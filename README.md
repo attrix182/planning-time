@@ -1,6 +1,6 @@
 # Planning Time
 
-Deploy: https://qa-planningtime.netlify.app
+Deploy: https://planningtime.com.ar/
 
 ![image](https://user-images.githubusercontent.com/44885834/203452359-f9b0caf0-5639-405b-92fa-fec058728b00.png)
 
