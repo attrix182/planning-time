@@ -227,12 +227,19 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
 
   calcularPromedio() {
     let total = 0;
-    this.results.forEach((v) => {
-      total += v.vote != '?' ? parseInt(v.vote) : 0;
-    });
-    this.promedio = total / this.results.length;
-  }
+    let resultsAux = this.results.filter((r) => r.vote !== '?');
+    resultsAux = resultsAux.filter((r) => r.vote !== '☕');
 
+
+
+    resultsAux.forEach((v) => {
+      if (v.vote !== '?') {
+        total += parseInt(v.vote);
+      }
+    });
+
+    this.promedio = total / resultsAux.length;
+  }
   setAnswered() {
     if (this.results.length == 0) this.restartAnswered();
     this.results.forEach((r) => {
