@@ -2,7 +2,7 @@
 
 Deploy: https://planningtime.com.ar/
 
-![image](https://user-images.githubusercontent.com/44885834/203452359-f9b0caf0-5639-405b-92fa-fec058728b00.png)
+![image](https://user-images.githubusercontent.com/44885834/209598372-777186d7-a338-4d6d-9239-402c08a241b7.png)
 
 # Informacion sobre el sitio
 ## ¿Que es Planning time?
