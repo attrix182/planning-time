@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { EventSesion } from 'src/app/models/event.model';
 
@@ -13,12 +12,10 @@ export class SuccesfullyCreateComponent {
   copied: boolean = false;
   url: string = '';
 
-  constructor(private messageSvc: MessageService, private router: Router) {}
+  constructor(private messageSvc: MessageService) {}
 
   ngOnInit(): void {
-    this.url = 'https://feedbackcito.com.ar/#/' + this.event.id;
-
-   // this.localStorageManager();
+    this.url = 'https://planningtime.com.ar/#/' + this.event.id;
   }
 
   removeLocalEvent(){
@@ -46,6 +43,6 @@ export class SuccesfullyCreateComponent {
   }
 
   goToPanel() {
-    window.open('https://qa-planningtime.netlify.app/#/sesion/' + this.event.id);
+    window.open('https://planningtime.com.ar/#/sesion/' + this.event.id);
   }
 }
