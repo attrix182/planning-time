@@ -17,6 +17,8 @@
   flex-direction: column;
   align-items: center;
   margin: auto;
+  height: 38vh;
+  overflow-y: auto;
   cursor: pointer;
 }
 
@@ -46,7 +48,7 @@
   justify-content: center;
   flex-direction: row;
   position: absolute;
-  top: 20vh;
+  top: 15vh;
   gap: 20px;
 }
 
@@ -72,7 +74,7 @@
 
 .users-box {
   position: absolute;
-  bottom: 18px;
+  bottom: 15px;
   justify-content: center;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -161,7 +163,7 @@
     cursor: pointer;
     -webkit-user-select: none;
     user-select: none;
-    height: 40vh;
+    height: 45vh;
     width: 85vw;
     overflow-y: auto;
   }
