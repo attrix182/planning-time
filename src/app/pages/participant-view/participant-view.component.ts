@@ -18,7 +18,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   event: EventSesion;
   override formGroup: any;
   userName: any = undefined;
-  options: string[] = ['1', '2', '3', '5', '8', '13', '?'];
+  options: string[] = ['1', '2', '3', '5', '8', '13', '?', '☕'];
   optionSelected: string = undefined;
   results: any[] = [];
   promedio: number = 0;
@@ -122,10 +122,12 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
       await this.alertService.promptAlert().then((name: any) => (this.userName = name.value));
       localStorage.setItem('user-name', this.userName);
       this.setActiveUserInSesion();
+
     } else {
       this.setActiveUserInSesion();
+
     }
-  }
+  }    
 
   setActiveUserInSesion() {
     if (this.activeUsers == undefined) return;
@@ -135,6 +137,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     if (!user.name) return;
     if (exist == -1) {
       this.storageSvc.Insert('activeUsers', user);
+ 
     }
   }
 
@@ -155,12 +158,6 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     }
     if (this.optionSelected) {
       this.areVotedMsg();
-     /*  let result = { user: this.userName, vote: opt, sesion: this.getId };
-      let exist = this.results.findIndex((r) => r.user == result.user);
-
-      if (exist != -1) return;
-      this.deleteVoteByUser(this.userName);
-      this.storageSvc.Insert(this.getId, result); */
       return;
     }
 

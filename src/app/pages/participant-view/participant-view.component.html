@@ -1,11 +1,20 @@
 <p-toast position="top-center" class="p-toast"></p-toast>
 
- <section class="user-icon">
-  <button (click)="changeName()" pTooltip="Cambia tu nombre" pButton pRipple type="button" icon="pi pi-user" class=" p-button-primary p-button-rounded p-button-outlined"></button>
-</section>
+<aside class="user-icon">
+  <button
+    (click)="changeName()"
+    pTooltip="Cambia tu nombre"
+    pButton
+    pRipple
+    type="button"
+    icon="pi pi-user"
+    class="p-button-primary p-button-rounded p-button-outlined"
+  ></button>
+</aside>
 
-<section class="participation-section" *ngIf="!loading">
-  <section class="actions-box card" *ngIf="!loading && event.active">
+<!-- Desktop  -->
+<section id="desktop" class="participation-section" *ngIf="!loading">
+  <div class="actions-box" *ngIf="!loading && event.active">
     <button *ngIf="!showResults" pButton pRipple class="p-button-raised p-button-primary" (click)="presentResults()">
       Mostrar resultados
       <i class="ml-2 pi pi-eye"></i>
@@ -16,16 +25,23 @@
       <i class="ml-2 pi pi-eye-slash"></i>
     </button>
 
-    <button [disabled]="results.length == 0" pButton pRipple class="p-button-raised p-button-primary" (click)="restart()">Reiniciar
+    <button
+      [disabled]="results.length == 0"
+      pButton
+      pRipple
+      class="p-button-raised p-button-primary"
+      (click)="restart()"
+    >
+      Reiniciar
       <i class="ml-2 pi pi-refresh"></i>
     </button>
-  </section>
+  </div>
 
-  <section class="users-box" *ngIf="!loading && activeUsers">
-    <div *ngFor="let user of activeUsers" class="card" [ngClass]="user.answer ? 'answer' : ''">
+  <div class="users-box" *ngIf="!loading && activeUsers">
+    <div *ngFor="let user of activeUsers" class="card-user" [ngClass]="user.answer ? 'answer' : ''">
       {{ user.name }}
     </div>
-  </section>
+  </div>
 
   <div class="card-center" *ngIf="!loading && event.active">
     <div class="title text-dark p-4">¡Elije una carta!</div>
@@ -35,7 +51,7 @@
     </section>
   </div>
 
-  <section class="options-box card" *ngIf="!loading && event.active">
+  <div class="options-box card" *ngIf="!loading && event.active">
     <div
       *ngFor="let opt of options"
       class="card"
@@ -44,7 +60,7 @@
     >
       {{ opt }}
     </div>
-  </section>
+  </div>
 
   <div *ngIf="!loading && !event.active">
     <div class="card">
@@ -52,6 +68,37 @@
       <div class="subtitle">Evento: {{ event.eventTitle }}</div>
       <h1>Esta sesion ya no esta activa</h1>
       <button pButton class="mt-4 mb-2 p-button-raised p-button-primmary" routerLink="/">Volver al Home</button>
+    </div>
+  </div>
+</section>
+
+<!-- Mobile  -->
+<section id="mobile" *ngIf="!loading">
+  <div class="card-rta results-mobile" *ngIf="!loading && event.active">
+    <div class="title text-dark p-4" *ngIf="!showResults">¡Elije una carta!</div>
+    <section *ngIf="showResults" class="results-list">
+      <div *ngFor="let res of results">{{ res.user }} voto: {{ res.vote }}</div>
+      <div class="promedio" *ngIf="promedio">Promedio: {{ promedio.toFixed(2) }}</div>
+    </section>
+  </div>
+
+  <div class="options-box card" *ngIf="!loading && event.active">
+    <div
+      pButton
+      *ngFor="let opt of options"
+      class="card card-item"
+      [ngClass]="optionSelected == opt ? 'active' : ''"
+      (click)="selectOption(opt)"
+    >
+      {{ opt }}
+    </div>
+  </div>
+
+  <div class="users-box" *ngIf="!loading && activeUsers">
+    <div *ngFor="let user of activeUsers" class="card-user" [ngClass]="user.answer ? 'answer' : ''">
+      <span>
+        {{ user.name }}
+      </span>
     </div>
   </div>
 </section>
