@@ -122,12 +122,10 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
       await this.alertService.promptAlert().then((name: any) => (this.userName = name.value));
       localStorage.setItem('user-name', this.userName);
       this.setActiveUserInSesion();
-
     } else {
       this.setActiveUserInSesion();
-
     }
-  }    
+  }
 
   setActiveUserInSesion() {
     if (this.activeUsers == undefined) return;
@@ -137,7 +135,6 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     if (!user.name) return;
     if (exist == -1) {
       this.storageSvc.Insert('activeUsers', user);
- 
     }
   }
 
@@ -150,8 +147,6 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   }
 
   selectOption(opt: string) {
- 
-
     if (this.showResults) {
       this.cantVoteShowResults();
       return;
@@ -175,8 +170,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
       console.log(res);
       this.storageSvc.Delete(this.getId, res[0].id).then(() => {
         this.getResults();
-      }
-    );
+      });
     });
   }
 
@@ -198,7 +192,6 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   getResults() {
     this.storageSvc.GetAll(this.getId).subscribe((res: any) => {
       this.results = res;
-
       this.restartAnswered();
       this.setAnswered();
       this.calcularPromedio();
@@ -213,6 +206,11 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   }
 
   presentResults() {
+    if (this.results.length == 0) {
+      this.messageService.clear();
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Aún no hay resultados para mostrar' });
+      return;
+    }
     this.event.resultsVisibility = true;
     this.storageSvc.Update(this.getId, 'events', this.event);
     this.showResults = true;
@@ -229,8 +227,6 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     let total = 0;
     let resultsAux = this.results.filter((r) => r.vote !== '?');
     resultsAux = resultsAux.filter((r) => r.vote !== '☕');
-
-
 
     resultsAux.forEach((v) => {
       if (v.vote !== '?') {

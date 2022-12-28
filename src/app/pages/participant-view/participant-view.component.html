@@ -15,7 +15,7 @@
 <!-- Desktop  -->
 <section id="desktop" class="participation-section" *ngIf="!loading">
   <div class="actions-box" *ngIf="!loading && event.active">
-    <button *ngIf="!showResults" pButton pRipple class="p-button-raised p-button-primary" (click)="presentResults()">
+    <button [disabled]="results.length == 0" *ngIf="!showResults" pButton pRipple class="p-button-raised p-button-primary" (click)="presentResults()">
       Mostrar resultados
       <i class="ml-2 pi pi-eye"></i>
     </button>
@@ -44,7 +44,7 @@
   </div>
 
   <div class="card-center" *ngIf="!loading && event.active">
-    <div class="title text-dark p-2">¡Elije una carta!</div>
+    <div class="title intro-text text-dark p-4" *ngIf="!showResults">¡Elije una carta!</div>
     <section *ngIf="showResults" class="text-center">
       <div *ngFor="let res of results">{{ res.user }} voto: {{ res.vote }}</div>
       <div class="promedio" *ngIf="promedio">Promedio: {{ promedio.toFixed(2) }}</div>

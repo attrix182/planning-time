@@ -3,7 +3,7 @@
   height: 100vh;
   display: flex;
   justify-content: center;
-  padding: 40px;
+  padding: 20px;
   background-color: rgb(239, 237, 237);
 }
 
@@ -17,7 +17,8 @@
   flex-direction: column;
   align-items: center;
   margin: auto;
-  height: 38vh;
+  height: 35vh;
+  width: 300px;
   overflow-y: auto;
   cursor: pointer;
 }
@@ -34,6 +35,13 @@
   margin: auto;
   cursor: pointer;
   user-select: none;
+}
+
+.intro-text{
+  display: flex;
+  align-items: center;
+  font-size: 1.5em;
+  height: 100vh;
 }
 
 .card :hover {
@@ -57,8 +65,8 @@
   justify-content: center;
   flex-direction: row;
   position: absolute;
-  flex-wrap: wrap;
-  bottom: 13vh;
+  flex-wrap: nowrap;
+  bottom: 15vh;
   gap: 20px;
 }
 
@@ -142,12 +150,13 @@
 
   .options-box {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: row;
     position: absolute;
-    flex-wrap: wrap;
     gap: 10px;
     max-width: 85vw;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
   }
 
   .card-rta {
@@ -163,7 +172,7 @@
     cursor: pointer;
     -webkit-user-select: none;
     user-select: none;
-    height: 45vh;
+    height: 55vh;
     width: 85vw;
     overflow-y: auto;
   }
@@ -179,7 +188,7 @@
   }
 
   .results-mobile {
-    margin-top: 9vh;
+    margin-top: 11vh;
   }
 
   .results-list {
