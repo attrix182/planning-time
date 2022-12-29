@@ -112,9 +112,15 @@
   background-color: #3749a8;
 }
 
-.user-icon {
+.left-icon {
   position: absolute;
   right: 0;
+  padding: 10px;
+}
+
+.rigth-icon {
+  position: absolute;
+  left: 0;
   padding: 10px;
 }
 
@@ -198,6 +204,44 @@
     gap: 10px;
   }
 
+}
+
+@media screen and (min-height: 1100px) {
+  .card-center {
+    height: 467px;
+    margin-top: auto;
+  }
+}
+
+@media screen and (min-height: 950px) {
+  .card-center {
+    height: 467px;
+    margin-top: 21vh;
+  }
+}
+
+@media screen and (max-height: 740px) {
+  .card-center {
+    margin-top: 22vh;
+    height: 252px;
+  }
+}
+
+@media screen and (max-height: 604px) {
+  .card-center {
+    margin-top: 21vh;
+    height: 225px;
+  }
+
+}
+
+.actions-box-mobile{
+  position: absolute;
+  top: 1vh;
+  left: 12vw;
+  background-color: #9a9999;
+  padding: 8px;
+  border-radius: 10px;
 }
 
 @media screen and (min-width: 599px) {

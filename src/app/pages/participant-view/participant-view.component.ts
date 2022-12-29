@@ -24,6 +24,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   promedio: number = 0;
   showResults: boolean = false;
   activeUsers: any[] = undefined;
+  showActions:boolean = true;
 
 
   constructor(
@@ -261,5 +262,9 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
         });
       }
     });
+  }
+
+  toggleShowActions(){
+    this.showActions = !this.showActions;
   }
 }

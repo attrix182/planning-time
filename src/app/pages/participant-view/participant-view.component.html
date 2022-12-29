@@ -1,21 +1,66 @@
 <p-toast position="top-center" class="p-toast"></p-toast>
 
-<aside class="user-icon">
+<div class="section">
+  <aside class="left-icon">
+    <button
+      (click)="changeName()"
+      pTooltip="Cambia tu nombre"
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-user"
+      class="p-button-primary p-button-rounded p-button-outlined"
+    ></button>
+  </aside>
+
+  <aside class="rigth-icon" id="mobile">
+    <button
+      (click)="toggleShowActions()"
+      pTooltip="Mostrar acciones"
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-cog"
+      class="p-button-primary p-button-rounded p-button-outlined"
+    ></button>
+  </aside>
+</div>
+
+<div class="actions-box-mobile" *ngIf="!loading && showActions"  id="mobile">
   <button
-    (click)="changeName()"
-    pTooltip="Cambia tu nombre"
+    [disabled]="results.length == 0"
+    *ngIf="!showResults"
     pButton
     pRipple
-    type="button"
-    icon="pi pi-user"
-    class="p-button-primary p-button-rounded p-button-outlined"
-  ></button>
-</aside>
+    class="p-button-raised p-button-primary"
+    (click)="presentResults()"
+  >
+    Mostrar resultados
+    <i class="ml-2 pi pi-eye"></i>
+  </button>
+
+  <button *ngIf="showResults" pButton pRipple class="p-button-raised p-button-primary" (click)="hideResults()">
+    Ocultar resultados
+    <i class="ml-2 pi pi-eye-slash"></i>
+  </button>
+
+  <button [disabled]="results.length == 0" pButton pRipple class="p-button-raised p-button-primary" (click)="restart()">
+    Reiniciar
+    <i class="ml-2 pi pi-refresh"></i>
+  </button>
+</div>
 
 <!-- Desktop  -->
 <section id="desktop" class="participation-section" *ngIf="!loading">
   <div class="actions-box" *ngIf="!loading && event.active">
-    <button [disabled]="results.length == 0" *ngIf="!showResults" pButton pRipple class="p-button-raised p-button-primary" (click)="presentResults()">
+    <button
+      [disabled]="results.length == 0"
+      *ngIf="!showResults"
+      pButton
+      pRipple
+      class="p-button-raised p-button-primary"
+      (click)="presentResults()"
+    >
       Mostrar resultados
       <i class="ml-2 pi pi-eye"></i>
     </button>
