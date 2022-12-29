@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { EventSesion } from 'src/app/models/event.model';
 import { StorageService } from 'src/app/services/storage.service';
 import { Section } from 'src/app/types/section.type';
-
 @Component({
   selector: 'fc-home',
   templateUrl: './home.component.html',
@@ -73,9 +72,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  handleID() {
+  handleID($event?:Event) {
     this.isLoading = true;
     this.showCreate = false;
+    $event ? this.eventID = $event.toString() : this.eventID;
     this.storageSvc.GetByParameter('events', 'id', this.eventID).subscribe((res: any) => {
       this.isLoading = false;
       this.event = res[0];

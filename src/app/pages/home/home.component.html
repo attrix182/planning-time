@@ -21,7 +21,7 @@
   </section>
 
   <section *ngIf="showCreate && !isLoading" [@enterAnimationY]>
-    <fc-create-form (back)="toggleShowCreate()" (nextStep)="handleID()"></fc-create-form>
+    <fc-create-form (back)="toggleShowCreate()" (nextStep)="handleID($event)"></fc-create-form>
   </section>
 
   <section *ngIf="succesfullyCreate && !isLoading" [@enterAnimationY]>
