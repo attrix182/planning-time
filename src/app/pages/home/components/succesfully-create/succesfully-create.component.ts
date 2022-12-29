@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { EventSesion } from 'src/app/models/event.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'fc-succesfully-create',
@@ -11,25 +12,11 @@ export class SuccesfullyCreateComponent {
   @Input() event: EventSesion;
   copied: boolean = false;
   url: string = '';
+  messageSvc = inject(MessageService)
 
-  constructor(private messageSvc: MessageService) {}
 
   ngOnInit(): void {
-    this.url = 'https://planningtime.com.ar/#/' + this.event.id;
-  }
-
-  removeLocalEvent(){
-   localStorage.removeItem("events")
-  }
-
-  localStorageManager() {
-    let events: any[] = [];
-    events = JSON.parse(localStorage.getItem('events'));
-    if (events == null) {
-      localStorage.setItem('events', JSON.stringify(this.event));
-    } else {
-      localStorage.setItem('events', JSON.stringify(this.event));
-    }
+    this.url = `${environment.url_deploy }/sesion/${this.event.id}`;
   }
 
   copyLink() {
@@ -43,6 +30,6 @@ export class SuccesfullyCreateComponent {
   }
 
   goToPanel() {
-    window.open('https://planningtime.com.ar/#/sesion/' + this.event.id);
+    window.open(`${environment.url_deploy }/sesion/${this.event.id}`);
   }
 }

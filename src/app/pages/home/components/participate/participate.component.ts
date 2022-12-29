@@ -1,19 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
   selector: 'fc-participate',
   templateUrl: './participate.component.html',
   styleUrls: ['./participate.component.scss']
 })
-export class ParticipateComponent implements OnInit {
+export class ParticipateComponent  {
   @Input('id') sesionId: string = '';
   @Output('back') goBack: any = new EventEmitter();
-
-  constructor(private router: Router) {}
-
-  ngOnInit(): void {
-
-  }
+  router = inject(Router);
 
   goToSesion() {
     if (this.sesionId.length > 5) {

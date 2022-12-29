@@ -12,7 +12,7 @@ import { FormValidator } from 'src/app/shared/primeng/form.validator';
 })
 export class CreateFormComponent extends FormValidator implements OnInit {
   override formGroup: UntypedFormGroup;
-  loading: boolean = false;
+  isLoading: boolean = false;
   @Output('back') back: any = new EventEmitter<void>();
   @Output('nextStep') nextStepEvent: any = new EventEmitter<string>();
   constructor(
@@ -25,30 +25,32 @@ export class CreateFormComponent extends FormValidator implements OnInit {
   }
 
   definirMensajesError(): void {}
+
   ngOnInit() {
     this.initForm();
   }
+
   initForm() {
     this.formGroup = this.fb.group({
       team: ['', [Validators.required]],
     });
   }
 
-  nextStep() {
-    this.loading = true;
+  createSesion() {
+    this.isLoading = true;
     let form = this.formGroup.value;
     form.id = this.cloudFireStore.createId();
     form.active = true;
     this.storageSvc
       .InsertCustomID('events', form.id, form)
       .then((res) => {
-        this.loading = false;
+        this.isLoading = false;
         this.messageService.add({ severity: 'success', summary: '¡Creada!', detail: 'Sesión creada con éxito' });
         this.formGroup.reset();
         this.nextStepEvent.emit(form.id);
       })
       .catch((err) => {
-        this.loading = false;
+        this.isLoading = false;
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al crear la sesión' });
       });
   }
