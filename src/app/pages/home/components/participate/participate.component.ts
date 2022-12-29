@@ -12,7 +12,6 @@ export class ParticipateComponent  {
 
   ngOnInit(){
     this.sesionId =  this.router.url.split('/')[1];
-    console.log(this.sesionId);
   }
 
   goToSesion() {

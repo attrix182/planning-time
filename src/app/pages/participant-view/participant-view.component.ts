@@ -24,10 +24,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   promedio: number = 0;
   showResults: boolean = false;
   activeUsers: any[] = undefined;
-  @HostListener('window:beforeunload', ['$event'])
-  beforeunloadHandler(event): void {
-    this.setInactiveUserInSesion();
-  }
+
 
   constructor(
     private storageSvc: StorageService,
@@ -164,16 +161,6 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     this.storageSvc.Insert(this.getId, result);
   }
 
-  //deprecated
-  deleteVoteByUser(userName: string) {
-    this.storageSvc.GetByParameter(this.getId, 'user', userName).subscribe((res: any) => {
-      console.log(res);
-      this.storageSvc.Delete(this.getId, res[0].id).then(() => {
-        this.getResults();
-      });
-    });
-  }
-
   cantVoteShowResults() {
     this.messageService.clear();
     this.messageService.add({
@@ -236,6 +223,8 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
 
     this.promedio = total / resultsAux.length;
   }
+
+  
   setAnswered() {
     if (this.results.length == 0) this.restartAnswered();
     this.results.forEach((r) => {

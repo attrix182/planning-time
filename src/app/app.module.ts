@@ -14,7 +14,6 @@ import { ParticipateComponent } from './pages/home/components/participate/partic
 import { CommonModule } from '@angular/common';
 import { ParticipantViewComponent } from './pages/participant-view/participant-view.component';
 import { QrCodeModule } from 'ng-qrcode';
-import { FeedbackViewComponent } from './pages/feedback-view/feedback-view.component';
 import { LandingComponent } from './pages/landing/landing.component';
 
 @NgModule({
@@ -25,7 +24,6 @@ import { LandingComponent } from './pages/landing/landing.component';
     SuccesfullyCreateComponent,
     ParticipateComponent,
     ParticipantViewComponent,
-    FeedbackViewComponent,
     LandingComponent,
   ],
   imports: [
