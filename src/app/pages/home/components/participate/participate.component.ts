@@ -10,6 +10,11 @@ export class ParticipateComponent  {
   @Output('back') goBack: any = new EventEmitter();
   router = inject(Router);
 
+  ngOnInit(){
+    this.sesionId =  this.router.url.split('/')[1];
+    console.log(this.sesionId);
+  }
+
   goToSesion() {
     if (this.sesionId.length > 5) {
       if(this.sesionId.includes('https')){
