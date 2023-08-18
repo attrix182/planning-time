@@ -32,7 +32,7 @@ export class CreateFormComponent extends FormValidator implements OnInit {
 
   initForm() {
     this.formGroup = this.fb.group({
-      team: ['', [Validators.required]],
+      team: ['', [Validators.required]]
     });
   }
 
@@ -54,5 +54,4 @@ export class CreateFormComponent extends FormValidator implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al crear la sesión' });
       });
   }
-
 }
