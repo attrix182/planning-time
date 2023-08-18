@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { ParticipantViewComponent } from './pages/participant-view/participant-view.component';
 import { QrCodeModule } from 'ng-qrcode';
 import { LandingComponent } from './pages/landing/landing.component';
+import { TasksModalComponent } from './pages/home/components/tasks-modal/tasks-modal.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { LandingComponent } from './pages/landing/landing.component';
     ParticipateComponent,
     ParticipantViewComponent,
     LandingComponent,
+    TasksModalComponent,
   ],
   imports: [
     BrowserModule,

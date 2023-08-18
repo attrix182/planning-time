@@ -1,0 +1,59 @@
+<section class="tasks-modal">
+  <div class="tasks-modal_card">
+    <div class="tasks-modal_card_header">
+      <div class="tasks-modal_card_header_title">Tareas agregadas</div>
+      <div class="tasks-modal_card_header_actions">
+        <input
+          pTooltip="Dentro de la incidencia, en los 3 puntos, busca 'Exportar XML' y pegalo aquí"
+          class="tasks-modal_card_header_actions-input"
+          placeholder="XML incidencia JIRA"
+          pInputText
+          [(ngModel)]="taskXML"
+          type="text"
+        />
+
+        <button [disabled]="taskXML.length < 1" pButton icon="pi pi-plus" (click)="addTask()">Agregar tarea</button>
+      </div>
+    </div>
+    <div class="tasks-modal_card_body">
+      <div class="tasks-modal_card_body_cards">
+        <ng-container *ngFor="let task of tasks">
+          <div class="tasks-modal_card_body_cards_card" (click)="selectTask(task)">
+            <div class="tasks-modal_card_body_cards_card_title">
+              <p>
+                {{ task.title?._text }}
+              </p>
+            </div>
+            <div class="tasks-modal_card_body_cards_card_actions">
+              <button
+                (click)="deleteTask(task)"
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-raised p-button-rounded p-button-danger"
+              ></button>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <footer class="tasks-modal_card_footer">
+      <div class="tasks-modal_card_footer_actions">
+        <button
+          pButton
+          pRipple
+          label="Cancelar"
+          (click)="closeModal()"
+          class="p-button-raised p-button-outlined p-button-primary"
+        ></button>
+        <button
+          pButton
+          pRipple
+          label="Guardar y salir"
+          (click)="saveAndClose()"
+          class="p-button-raised p-button-primary"
+        ></button>
+      </div>
+    </footer>
+  </div>
+</section>

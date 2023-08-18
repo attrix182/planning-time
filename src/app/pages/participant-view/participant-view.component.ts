@@ -3,6 +3,7 @@ import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { EventSesion } from 'src/app/models/event.model';
+import { TaskModel } from 'src/app/models/task.model';
 import { AlertService } from 'src/app/services/alerts.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { FormValidator } from 'src/app/shared/primeng/form.validator';
@@ -13,6 +14,7 @@ import { FormValidator } from 'src/app/shared/primeng/form.validator';
   styleUrls: ['./participant-view.component.scss']
 })
 export class ParticipantViewComponent extends FormValidator implements OnInit {
+
   loading: boolean = false;
   getId = this.router.url.split('/')[2].trim();
   event: EventSesion;
@@ -24,8 +26,9 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   promedio: number = 0;
   showResults: boolean = false;
   activeUsers: any[] = undefined;
-  showActions:boolean = false;
-
+  showActions: boolean = false;
+  selectedTask: TaskModel;
+  showModal: boolean = false;
 
   constructor(
     private storageSvc: StorageService,
@@ -225,7 +228,6 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     this.promedio = total / resultsAux.length;
   }
 
-  
   setAnswered() {
     if (this.results.length == 0) this.restartAnswered();
     this.results.forEach((r) => {
@@ -264,7 +266,17 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     });
   }
 
-  toggleShowActions(){
+  toggleShowActions() {
     this.showActions = !this.showActions;
+  }
+
+
+  toggleModal(){
+    this.showModal = !this.showModal
+  }
+  
+  selectTask(selectedTask: TaskModel){
+    this.selectedTask = selectedTask
+    console.log(selectedTask)
   }
 }

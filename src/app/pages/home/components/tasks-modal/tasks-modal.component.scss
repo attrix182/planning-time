@@ -1,0 +1,121 @@
+.tasks-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+
+  &_card {
+    background-color: white;
+    border-radius: 8px;
+    width: 755px;
+    height: 460px;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    position: relative;
+
+    &_header {
+      display: flex;
+      align-items: center;
+      width: 750px;
+      border-bottom: 1px solid lightgray;
+      position: absolute;
+      padding: 5px;
+
+
+      &_title {
+        font-size: 1.5em;
+        font-weight: bold;
+        white-space: nowrap;
+        padding-left: 20px;
+        margin-bottom: 5px;
+      }
+      
+
+      &_actions {
+        display: inline-flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin: auto;
+        gap: 10px;
+        width: 100%;
+        margin-bottom: 5px;
+
+        &-input{
+            height: 41.84px;
+            width: 320px;
+        }
+      }
+    }
+
+    &_body {
+        margin-top: 70px;
+        overflow: auto;
+        height: 290px;
+
+      &_cards{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+          &_card {
+            display: flex;
+            width: 700px;
+            height: 65px;
+            border: 1px solid lightgray;
+            border-radius: 8px;
+            padding: 8px;
+            cursor: pointer;
+            
+            &_title {
+              height: 100%;
+              width: 90%;
+              overflow: hidden;
+              position: relative;
+              display: inline-block;
+              text-align: start;
+              text-decoration: none;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              color: #000;
+            }
+    
+            &_actions {
+              display: inline-flex;
+              justify-content: flex-end;
+              align-items: center;
+              margin: auto;
+            }
+    
+            &:hover {
+              box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+            }
+    
+    
+          }
+
+      }
+
+    }
+
+    &_footer {
+      position: absolute;
+      border-top: 1px solid lightgray;
+      bottom: 10px;
+      width: 750px;
+      padding: 10px;
+
+      &_actions{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 20px;
+      }
+    }
+  }
+}

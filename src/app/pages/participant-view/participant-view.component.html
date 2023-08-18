@@ -13,6 +13,20 @@
     ></button>
   </aside>
 
+
+  <aside class="right-icon m-2">
+    <button
+      (click)="toggleModal()"
+      pTooltip="Importa tareas desde JIRA"
+      pButton
+      pRipple
+      label="¡Agregar tareas!"
+      type="button"
+      icon="pi pi-book"
+      class="p-button-primary p-button-rounded p-button-outlined"
+    ></button>
+  </aside>
+
   <aside class="rigth-icon" id="mobile">
     <button
       (click)="toggleShowActions()"
@@ -89,7 +103,13 @@
   </div>
 
   <div class="card-center" *ngIf="!loading && event.active">
+
+    <div *ngIf="selectedTask">
+      <a [href]="selectedTask.link._text" target="_blank" style="font-size: 1em; font-weight: bold; text-align: center;">{{selectedTask.title._text}}</a>
+    </div>
+
     <div class="title intro-text text-dark p-4" *ngIf="!showResults">¡Elije una carta!</div>
+
     <section *ngIf="showResults" class="text-center">
       <div *ngFor="let res of results">{{ res.user }} voto: {{ res.vote }}</div>
       <div class="promedio" *ngIf="promedio">Promedio: {{ promedio.toFixed(2) }}</div>
@@ -147,5 +167,7 @@
     </div>
   </div>
 </section>
+
+<fc-tasks-modal (onSelectTask)="selectTask($event)" (onClose)="toggleModal()" *ngIf="showModal"></fc-tasks-modal>
 
 <p-toast position="top-center" class="p-toast"></p-toast>
