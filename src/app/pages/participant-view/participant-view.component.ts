@@ -104,6 +104,8 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     this.storageSvc.GetByParameter('events', 'id', aux).subscribe((res: any) => {
       this.event = res[0];
       this.loading = false;
+      this.selectedTask = res[0].selectedTask
+      console.log(res[0]);
       this.validate();
       this.getResults();
     });

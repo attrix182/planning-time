@@ -168,6 +168,6 @@
   </div>
 </section>
 
-<fc-tasks-modal (onSelectTask)="selectTask($event)" (onClose)="toggleModal()" *ngIf="showModal"></fc-tasks-modal>
+<fc-tasks-modal [event]="event" (onSelectTask)="selectTask($event)" (onClose)="toggleModal()" *ngIf="showModal"></fc-tasks-modal>
 
 <p-toast position="top-center" class="p-toast"></p-toast>
