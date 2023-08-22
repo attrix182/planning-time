@@ -43,7 +43,7 @@ export class TasksModalComponent implements OnInit {
 
     this.storageSVC.InsertCustomID('tasks', this.getId, tasksDB);
 
-    console.log(this.tasks);
+    this.taskXML = '';
   }
 
   selectTask(task: TaskModel) {
@@ -70,6 +70,7 @@ export class TasksModalComponent implements OnInit {
       tasks: this.tasks
     };
 
+    if(task.key._text == this.selected.key._text) this.unSelectTask();
     this.storageSVC.InsertCustomID('tasks', this.getId, tasksDB);
   }
 
