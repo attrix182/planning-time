@@ -47,6 +47,8 @@ export class TasksModalComponent implements OnInit {
   }
 
   selectTask(task: TaskModel) {
+    console.log(task);
+    console.log(this.tasks[0]);
     this.event.selectedTask = task;
     this.storageSVC.Update(this.getId, 'events', this.event);
     this.onSelectTask.emit(task);

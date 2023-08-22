@@ -1,10 +1,12 @@
 .participation-section {
   width: 100vw;
-  height: 100vh;
+  height: 80vh;
   display: flex;
   justify-content: center;
   padding: 20px;
   background-color: rgb(239, 237, 237);
+  flex-direction: column;
+  gap: 20px
 }
 
 .card-center {
@@ -37,7 +39,7 @@
   user-select: none;
 }
 
-.intro-text{
+.intro-text {
   display: flex;
   align-items: center;
   font-size: 1.5em;
@@ -55,7 +57,6 @@
   display: flex;
   justify-content: center;
   flex-direction: row;
-  position: absolute;
   top: 15vh;
   gap: 20px;
 }
@@ -64,10 +65,8 @@
   display: flex;
   justify-content: center;
   flex-direction: row;
-  position: absolute;
   flex-wrap: nowrap;
-  bottom: 15vh;
-  gap: 20px;
+  gap: 30px;
 }
 
 .promedio {
@@ -125,13 +124,13 @@
 }
 
 @media screen and (max-width: 940px) {
-  .participation-section {
+/*   .participation-section {
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px;
-  }
+  } */
 }
 
 @media screen and (max-width: 599px) {
@@ -139,7 +138,7 @@
     display: none;
   }
 
-  .title{
+  .title {
     font-size: 1.5em;
     text-align: center;
     display: flex;
@@ -152,13 +151,14 @@
     justify-content: center;
     margin: auto;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
   }
 
   .options-box {
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
-    position: absolute;
     gap: 10px;
     max-width: 85vw;
     flex-wrap: nowrap;
@@ -203,45 +203,41 @@
     flex-direction: column;
     gap: 10px;
   }
-
 }
 
 @media screen and (min-height: 1100px) {
   .card-center {
     height: 424px;
-    margin-top: auto;
+
   }
 }
 
 @media screen and (min-height: 950px) {
   .card-center {
     height: 424px;
-    margin-top: 21vh;
+
   }
 }
 
 @media screen and (max-height: 740px) {
   .card-center {
-    margin-top: 22vh;
     height: 252px;
   }
 }
 
 @media screen and (max-height: 604px) {
   .card-center {
-    margin-top: 21vh;
     height: 225px;
   }
-
 }
 
-.actions-box-mobile{
-  position: absolute;
-  top: 1vh;
-  left: 15vw;
-  background-color: #9a9999;
-  padding: 8px;
+.actions-box-mobile {
+  background-color: #464646;
+  padding: 5px;
   border-radius: 10px;
+  margin-top: 18px;
+  margin-left: 84px;
+  width: 280px;
 }
 
 @media screen and (min-width: 599px) {
@@ -249,3 +245,32 @@
     display: none;
   }
 }
+
+
+.selected_task {
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+  &_link {
+    font-size: 1em;
+    font-weight: bold;
+    text-decoration: none;
+    color: rgb(54, 54, 222);
+  }
+
+  &_component {
+    background-color: #3749a8;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    color: white;
+  }
+}
+
+
+

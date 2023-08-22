@@ -13,7 +13,6 @@
     ></button>
   </aside>
 
-
   <aside class="right-icon m-2">
     <button
       (click)="toggleModal()"
@@ -40,7 +39,7 @@
   </aside>
 </div>
 
-<div class="actions-box-mobile" *ngIf="!loading && showActions"  id="mobile">
+<div class="actions-box-mobile" *ngIf="!loading && showActions" id="mobile">
   <button
     [disabled]="results.length == 0"
     *ngIf="!showResults"
@@ -103,9 +102,11 @@
   </div>
 
   <div class="card-center" *ngIf="!loading && event.active">
-
-    <div *ngIf="selectedTask">
-      <a [href]="selectedTask.link._text" target="_blank" style="font-size: 1em; font-weight: bold; text-align: center;">{{selectedTask.title._text}}</a>
+    <div>
+      <div *ngIf="selectedTask" class="selected_task">
+        <div *ngIf="selectedTask.component?._text" class="selected_task_component">{{ selectedTask.component?._text }}</div>
+        <a [href]="selectedTask.link._text" target="_blank" class="selected_task_link">{{ selectedTask.title._text }}</a>
+      </div>
     </div>
 
     <div class="title intro-text text-dark p-4" *ngIf="!showResults">¡Elije una carta!</div>
@@ -168,6 +169,11 @@
   </div>
 </section>
 
-<fc-tasks-modal [event]="event" (onSelectTask)="selectTask($event)" (onClose)="toggleModal()" *ngIf="showModal"></fc-tasks-modal>
+<fc-tasks-modal
+  [event]="event"
+  (onSelectTask)="selectTask($event)"
+  (onClose)="toggleModal()"
+  *ngIf="showModal"
+></fc-tasks-modal>
 
 <p-toast position="top-center" class="p-toast"></p-toast>

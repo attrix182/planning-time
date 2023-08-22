@@ -71,6 +71,9 @@
             border-radius: 8px;
             padding: 8px;
             cursor: pointer;
+            &:hover {
+             background-color: rgb(209, 206, 203);
+            }
             
             &_title {
               height: 100%;
@@ -91,12 +94,6 @@
               align-items: center;
               margin: auto;
             }
-    
-            &:hover {
-              box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-            }
-    
-    
           }
 
       }
@@ -118,4 +115,8 @@
       }
     }
   }
+}
+
+.selected{
+  background-color: rgb(90, 119, 224);
 }
