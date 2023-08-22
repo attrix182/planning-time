@@ -18,7 +18,7 @@
     <div class="tasks-modal_card_body">
       <div class="tasks-modal_card_body_cards">
         <ng-container *ngFor="let task of tasks">
-          <div class="tasks-modal_card_body_cards_card" [class.selected]="task.key._text == selected.key._text" (click)="selectTask(task)">
+          <div class="tasks-modal_card_body_cards_card" [class.selected]="task?.key._text == selected?.key._text" (click)="task?.key._text == selected?.key._text ? unSelectTask(): selectTask(task)">
             <div class="tasks-modal_card_body_cards_card_title">
               <p>
                 {{ task.title?._text }}

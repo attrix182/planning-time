@@ -14,7 +14,6 @@ import { FormValidator } from 'src/app/shared/primeng/form.validator';
   styleUrls: ['./participant-view.component.scss']
 })
 export class ParticipantViewComponent extends FormValidator implements OnInit {
-
   loading: boolean = false;
   getId = this.router.url.split('/')[2].trim();
   event: EventSesion;
@@ -104,7 +103,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     this.storageSvc.GetByParameter('events', 'id', aux).subscribe((res: any) => {
       this.event = res[0];
       this.loading = false;
-      this.selectedTask = res[0].selectedTask
+      this.selectedTask = res[0].selectedTask;
       console.log(res[0]);
       this.validate();
       this.getResults();
@@ -272,13 +271,12 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     this.showActions = !this.showActions;
   }
 
-
-  toggleModal(){
-    this.showModal = !this.showModal
+  toggleModal() {
+    this.showModal = !this.showModal;
   }
-  
-  selectTask(selectedTask: TaskModel){
-    this.selectedTask = selectedTask
-    console.log(selectedTask)
+
+  selectTask(selectedTask: TaskModel) {
+    this.selectedTask = selectedTask;
+    console.log(selectedTask);
   }
 }

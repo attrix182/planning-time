@@ -104,8 +104,8 @@
   <div class="card-center" *ngIf="!loading && event.active">
     <div>
       <div *ngIf="selectedTask" class="selected_task">
-        <div *ngIf="selectedTask.component?._text" class="selected_task_component">{{ selectedTask.component?._text }}</div>
-        <a [href]="selectedTask.link._text" target="_blank" class="selected_task_link">{{ selectedTask.title._text }}</a>
+        <div *ngIf="selectedTask?.component?._text" class="selected_task_component">{{ selectedTask?.component?._text }}</div>
+        <a [href]="selectedTask?.link._text" target="_blank" class="selected_task_link">{{ selectedTask?.title._text }}</a>
       </div>
     </div>
 

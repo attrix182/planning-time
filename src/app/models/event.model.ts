@@ -1,3 +1,5 @@
+import { TaskModel } from "./task.model";
+
 export interface EventSesion{
   id: string;
   eventDate:string;
@@ -5,5 +7,6 @@ export interface EventSesion{
   eventTeam: string;
   team:string;
   active:boolean;
+  selectedTask: TaskModel;
   resultsVisibility:boolean;
 }
