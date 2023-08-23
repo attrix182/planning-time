@@ -6,7 +6,7 @@
   padding: 20px;
   background-color: rgb(239, 237, 237);
   flex-direction: column;
-  gap: 20px
+  gap: 20px;
 }
 
 .card-center {
@@ -19,9 +19,10 @@
   flex-direction: column;
   align-items: center;
   margin: auto;
-  height: 290px;
-  width: 480px;
+  height: 355px;
+  width: 530px;
   overflow-y: auto;
+  gap: 15px;
   cursor: pointer;
 }
 
@@ -70,6 +71,7 @@
 }
 
 .promedio {
+  margin-top: 15px;
   font-size: 1.3em;
 }
 
@@ -123,129 +125,11 @@
   padding: 10px;
 }
 
-@media screen and (max-width: 940px) {
-/*   .participation-section {
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-  } */
+.rigth-icon-mobile {
+  position: absolute;
+  left: 0;
+  padding: 10px;
 }
-
-@media screen and (max-width: 599px) {
-  #desktop {
-    display: none;
-  }
-
-  .title {
-    font-size: 1.5em;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    height: 100vh;
-  }
-
-  section {
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-
-  .options-box {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    gap: 10px;
-    max-width: 85vw;
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-  }
-
-  .card-rta {
-    background-color: white;
-    color: black;
-    border-radius: 10px;
-    box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
-    cursor: pointer;
-    -webkit-user-select: none;
-    user-select: none;
-    height: 48vh;
-    width: 85vw;
-    overflow-y: auto;
-  }
-
-  .card-item {
-    width: 60px;
-    height: 60px;
-  }
-
-  .active {
-    background-color: rgba(63, 81, 181, 0.92);
-    box-shadow: none;
-  }
-
-  .results-mobile {
-    margin-top: 9vh;
-  }
-
-  .results-list {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 10px;
-  }
-}
-
-@media screen and (min-height: 1100px) {
-  .card-center {
-    height: 424px;
-
-  }
-}
-
-@media screen and (min-height: 950px) {
-  .card-center {
-    height: 424px;
-
-  }
-}
-
-@media screen and (max-height: 740px) {
-  .card-center {
-    height: 252px;
-  }
-}
-
-@media screen and (max-height: 604px) {
-  .card-center {
-    height: 225px;
-  }
-}
-
-.actions-box-mobile {
-  background-color: #464646;
-  padding: 5px;
-  border-radius: 10px;
-  margin-top: 18px;
-  margin-left: 84px;
-  width: 280px;
-}
-
-@media screen and (min-width: 599px) {
-  #mobile {
-    display: none;
-  }
-}
-
 
 .selected_task {
   border-radius: 12px;
@@ -270,7 +154,55 @@
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     color: white;
   }
+
+}
+.results-item{
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  font-weight: 600;
+  font-size: 1.05em;
 }
 
+.p-toast {
+  z-index: 1000;
+}
 
+// Desktop
+@media screen and (min-width: 599px) {
+  .rigth-icon-mobile {
+    display: none;
+  }
+  .actions-box-mobile{
+    display: none;
+  }
+}
 
+// Mobile
+@media screen and (max-width: 599px) {
+  .actions-box {
+    display: none;
+  }
+
+  .actions-box-mobile {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 15px;
+    margin-top: 15px;
+    margin-left: 70px;
+  }
+
+  .card-center {
+    width: 290px;
+    margin-top: 45px;
+  }
+
+  .options-box {
+    width: 300px;
+    overflow-x: scroll;
+    display: inline-flex;
+    justify-content: flex-start;
+  }
+}

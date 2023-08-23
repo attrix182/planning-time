@@ -16,6 +16,7 @@ import { ParticipantViewComponent } from './pages/participant-view/participant-v
 import { QrCodeModule } from 'ng-qrcode';
 import { LandingComponent } from './pages/landing/landing.component';
 import { TasksModalComponent } from './pages/home/components/tasks-modal/tasks-modal.component';
+import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { TasksModalComponent } from './pages/home/components/tasks-modal/tasks-m
     ParticipantViewComponent,
     LandingComponent,
     TasksModalComponent,
+    AdminProfileComponent,
   ],
   imports: [
     BrowserModule,

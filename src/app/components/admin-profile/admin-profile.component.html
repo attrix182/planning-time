@@ -1,0 +1,50 @@
+<section class="admin-modal">
+  <div class="admin-modal_card">
+    <div class="admin-modal_card_header">
+      <div class="admin-modal_card_header_title"><i class="pi pi-user"></i> &nbsp; Administra tu perfil</div>
+      <div class="admin-modal_card_header_actions"></div>
+    </div>
+    <div class="admin-modal_card_body">
+      <div>
+        Tu nombre actual es: <strong>{{ userActive?.name }}</strong>
+      </div>
+
+      <button
+        pButton
+        pRipple
+        label="Cambiar tu nombre"
+        (click)="changeName()"
+        class="p-button-raised p-button-primary"
+      ></button>
+
+      <div
+        class="card flex justify-content-center admin-modal_card_body_facilitator"
+        pTooltip="Siendo facilitador puedes mostrar/ocultar resultados, reiniciar la sesión y eliminar participantes"
+      >
+        <label>Soy facilitador</label>
+        <p-inputSwitch
+          class="admin-modal_card_body_facilitator-switch"
+          [(ngModel)]="userActive.facilitator"
+        ></p-inputSwitch>
+      </div>
+    </div>
+    <footer class="admin-modal_card_footer">
+      <div class="admin-modal_card_footer_actions">
+        <!--         <button
+          pButton
+          pRipple
+          label="Cancelar"
+          (click)="closeModal()"
+          class="p-button-raised p-button-outlined p-button-primary"
+        ></button> -->
+        <button
+          pButton
+          pRipple
+          label="Aceptar"
+          (click)="saveAndClose()"
+          class="p-button-raised p-button-primary"
+        ></button>
+      </div>
+    </footer>
+  </div>
+</section>

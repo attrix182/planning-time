@@ -19,6 +19,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   event: EventSesion;
   override formGroup: any;
   userName: any = undefined;
+  userActive:any;
   options: string[] = ['1', '2', '3', '5', '8', '13', '?', '☕'];
   optionSelected: string = undefined;
   results: any[] = [];
@@ -27,7 +28,8 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   activeUsers: any[] = undefined;
   showActions: boolean = false;
   selectedTask: TaskModel;
-  showModal: boolean = false;
+  showTasksModal: boolean = false;
+  showAdminProfileModal: boolean = false;
 
   constructor(
     private storageSvc: StorageService,
@@ -138,6 +140,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     if (exist == -1) {
       this.storageSvc.Insert('activeUsers', user);
     }
+    this.userActive = this.getUser();
   }
 
   setInactiveUserInSesion() {
@@ -271,8 +274,23 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     this.showActions = !this.showActions;
   }
 
-  toggleModal() {
-    this.showModal = !this.showModal;
+  toggleTasksModal() {
+    this.showTasksModal = !this.showTasksModal;
+  }
+
+
+  toggleAdminProfileModal(){
+    this.showAdminProfileModal = !this.showAdminProfileModal;
+  }
+
+  deleteUser(user){
+    if(this.results.length > 0){
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No puedes eliminar a un usuario si hay votos' });
+      return;
+    }
+    this.storageSvc.Delete('activeUsers', user.id).then(() => {
+      console.warn(user.name + ' deleted');
+    })
   }
 
   selectTask(selectedTask: TaskModel) {
