@@ -154,9 +154,8 @@
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     color: white;
   }
-
 }
-.results-item{
+.results-item {
   display: flex;
   justify-content: center;
   gap: 15px;
@@ -173,7 +172,7 @@
   .rigth-icon-mobile {
     display: none;
   }
-  .actions-box-mobile{
+  .actions-box-mobile {
     display: none;
   }
 }
