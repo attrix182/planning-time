@@ -19,8 +19,8 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   event: EventSesion;
   override formGroup: any;
   userName: any = undefined;
-  userActive:any;
-  options: string[] = ['1', '2', '3', '5', '8', '13', '?', '☕'];
+  userActive: any;
+  options: string[];
   optionSelected: string = undefined;
   results: any[] = [];
   promedio: number = 0;
@@ -30,6 +30,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   selectedTask: TaskModel;
   showTasksModal: boolean = false;
   showAdminProfileModal: boolean = false;
+  showAdminScale: boolean = false;
 
   constructor(
     private storageSvc: StorageService,
@@ -105,6 +106,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     this.storageSvc.GetByParameter('events', 'id', aux).subscribe((res: any) => {
       this.event = res[0];
       this.loading = false;
+      this.options = res[0].options ? res[0].options : ['1', '2', '3', '5', '8', '13', '?', '☕'];
       this.selectedTask = res[0].selectedTask;
       console.log(res[0]);
       this.validate();
@@ -278,19 +280,26 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     this.showTasksModal = !this.showTasksModal;
   }
 
-
-  toggleAdminProfileModal(){
+  toggleAdminProfileModal() {
     this.showAdminProfileModal = !this.showAdminProfileModal;
   }
 
-  deleteUser(user){
-    if(this.results.length > 0){
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No puedes eliminar a un usuario si hay votos' });
+  toggleAdminScaleModal(){
+    this.showAdminScale = !this.showAdminScale;
+  }
+
+  deleteUser(user) {
+    if (this.results.length > 0) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'No puedes eliminar a un usuario si hay votos'
+      });
       return;
     }
     this.storageSvc.Delete('activeUsers', user.id).then(() => {
       console.warn(user.name + ' deleted');
-    })
+    });
   }
 
   selectTask(selectedTask: TaskModel) {

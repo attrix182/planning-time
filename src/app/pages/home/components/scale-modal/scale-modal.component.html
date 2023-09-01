@@ -1,0 +1,60 @@
+<section class="tasks-modal">
+  <div class="tasks-modal_card">
+    <div class="tasks-modal_card_header">
+      <div class="tasks-modal_card_header_title">Cambiar escala de votación</div>
+      <div class="tasks-modal_card_header_actions"></div>
+    </div>
+    <div class="tasks-modal_card_body">
+      <div>
+        <!-- 
+        <div class="tasks-modal_card_body_options">Escala actual: {{ optionsFormatted }}</div> -->
+        <div class="tasks-modal_card_body_cards">
+          <div>Escalas sugeridas:</div>
+          <div
+            [pTooltip]="option.name"
+            class="tasks-modal_card_body_cards_card"
+            *ngFor="let option of presets"
+            (click)="changeScale(option)"
+          >
+            <div>
+              {{ formatOption(option.values) }}
+            </div>
+          </div>
+        </div>
+
+        <input
+          style="margin-right: 10px"
+          pTooltip="Puedes personalizar la escala, Ej: 1,2,3,🚀,🍕"
+          class="tasks-modal_card_header_actions-input"
+          placeholder="Sigue el formato: 1,2,3,6"
+          pInputText
+          [(ngModel)]="scaleInput"
+          type="text"
+        />
+        <button pButton pRipple label="Cambiar" (click)="setScale()" class="p-button-raised p-button-primary"></button>
+      </div>
+
+      <div class="options-box-demo">
+        {{   formatOption(scaleInput) }}
+      </div>
+    </div>
+    <footer class="tasks-modal_card_footer">
+      <div class="tasks-modal_card_footer_actions">
+        <button
+          pButton
+          pRipple
+          label="Cancelar"
+          (click)="closeModal()"
+          class="p-button-raised p-button-outlined p-button-primary"
+        ></button>
+        <!--        <button
+          pButton
+          pRipple
+          label="Guardar y salir"
+          (click)="saveAndClose()"
+          class="p-button-raised p-button-primary"
+        ></button> -->
+      </div>
+    </footer>
+  </div>
+</section>

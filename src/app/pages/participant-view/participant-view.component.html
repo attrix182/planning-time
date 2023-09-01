@@ -108,13 +108,26 @@
       Reiniciar
       <i class="ml-2 pi pi-refresh"></i>
     </button>
+
+    <button
+    [disabled]="!(results.length == 0)"
+    [pTooltip]="!(results.length == 0) ? 'No puedes cambiar la escala si hay respuestas': 'Puedes cambiar la escala de votación'"
+    pButton
+    pRipple
+    class="p-button-raised p-button-primary"
+    *ngIf="userActive?.facilitator"
+    (click)="toggleAdminScaleModal()"
+  >
+    Cambiar escala
+    <i class="ml-2 pi pi-chart-bar"></i>
+  </button>
   </div>
 
   <div class="users-box" *ngIf="!loading && activeUsers">
     <div
       tooltipPosition="top"
       [pTooltip]="userActive?.facilitator ? 'Eliminar participante' : ''"
-      (click)="deleteUser(user)"
+      (click)="userActive?.facilitator && deleteUser(user)"
       *ngFor="let user of activeUsers"
       class="card-user"
       [ngClass]="user.answer ? 'answer' : ''"
@@ -174,5 +187,13 @@
   *ngIf="showAdminProfileModal"
 >
 </fc-admin-profile-modal>
+
+<fc-scale-modal 
+*ngIf="showAdminScale"
+(onClose)="toggleAdminScaleModal()"
+[event]="event"
+>
+
+</fc-scale-modal>
 
 <p-toast position="top-center" class="p-toast"></p-toast>

@@ -17,6 +17,7 @@ import { QrCodeModule } from 'ng-qrcode';
 import { LandingComponent } from './pages/landing/landing.component';
 import { TasksModalComponent } from './pages/home/components/tasks-modal/tasks-modal.component';
 import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
+import { ScaleModalComponent } from './pages/home/components/scale-modal/scale-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AdminProfileComponent } from './components/admin-profile/admin-profile.
     LandingComponent,
     TasksModalComponent,
     AdminProfileComponent,
+    ScaleModalComponent,
   ],
   imports: [
     BrowserModule,
