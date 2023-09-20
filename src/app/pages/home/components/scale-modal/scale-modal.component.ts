@@ -23,7 +23,7 @@ export class ScaleModalComponent implements OnInit {
 
   ngOnInit(): void {
     //remove comas
-    this.optionsFormatted = this.event.options.toString().replace(/,/g, ' - ');
+    this.optionsFormatted = this.event?.options?.toString().replace(/,/g, ' - ');
   }
 
   formatOption(option: string) {
