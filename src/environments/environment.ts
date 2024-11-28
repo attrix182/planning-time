@@ -12,7 +12,7 @@ export const environment = {
     messagingSenderId: "398631154367",
     appId: "1:398631154367:web:53adb3ee70824d9f20cc0a"
   },
-
+  apiKeyGoogle: 'AIzaSyD9KDNEQOMr0NOWAtZMYQlcHV1Rw07vQSU',
   url_deploy: 'https://planningtime.com.ar/#/'
 };
 

@@ -46,6 +46,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.getInfo();
+    this.showTasksModal = true; // SOLO DESARROLLO
   }
 
   getInfo() {

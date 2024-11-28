@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { TaskModel } from 'src/app/models/task.model';
+import { AiService } from 'src/app/services/ai.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -15,20 +16,56 @@ export class TasksModalComponent implements OnInit {
   tasks: any = []; //TaskModel[] = [];
   getId = this.router.url.split('/')[2].trim();
   selected: any = {};
+  showDor = false;
   @Input() event: any = {};
   @Output('onClose') onClose: any = new EventEmitter<void>();
   @Output('onSelectTask') onSelectTask: any = new EventEmitter<TaskModel>();
+  dor: string;
+  loadingIA = false;
+  iaResponse: any;
+  showIAmodal = false;
 
-  constructor(private storageSVC: StorageService, private router: Router) {}
+  constructor(private storageSVC: StorageService, private router: Router, private AIservice: AiService) {}
 
   ngOnInit(): void {
     this.getTasks();
+    this.getDor();
   }
 
-  ngOnChanges(changes: SimpleChanges){
+  validateDOR(task: TaskModel, event: any) {
+    event.stopPropagation();
+    this.getIA(task);
+    console.log('validate task');
+  }
+
+  async getIA(task: TaskModel) {
+    this.loadingIA = true;
+    if (this.iaResponse) {
+      this.showIAmodal = true;
+      return;
+    }
+    const prompt = `Analiza si la tarea de JIRA especificada en el siguiente XML cumple con los criterios establecidos en el Definition of Ready (DOR) proporcionado. Después de analizarlo, identifica las áreas que no cumplen con el DOR y sugiere mejoras para alinearla con los criterios establecidos. (La tarea de JIRA es: ${JSON.stringify(
+      task
+    )}) y el DOR es: ${this.dor}`;
+
+    const result = await this.AIservice.model.generateContent(prompt);
+    const response = await result.response;
+    this.iaResponse = response.text();
+    this.loadingIA = false;
+    this.showIAmodal = true;
+  }
+
+  setDor(dor: any) {
+    this.dor = dor;
+  }
+
+  toggleShowDor() {
+    this.showDor = !this.showDor;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
     this.selected = this.event.selectedTask;
   }
-
 
   importTask() {
     let task = `${this.taskXML}`;
@@ -54,7 +91,7 @@ export class TasksModalComponent implements OnInit {
   }
 
   unSelectTask() {
-    this.event.selectedTask = null
+    this.event.selectedTask = null;
     this.storageSVC.Update(this.getId, 'events', this.event);
     this.onClose.emit();
   }
@@ -70,7 +107,7 @@ export class TasksModalComponent implements OnInit {
       tasks: this.tasks
     };
 
-    if(task.key._text == this.selected.key._text) this.unSelectTask();
+    if (task.key._text == this.selected.key._text) this.unSelectTask();
     this.storageSVC.InsertCustomID('tasks', this.getId, tasksDB);
   }
 
@@ -82,8 +119,21 @@ export class TasksModalComponent implements OnInit {
     });
   }
 
+  getDor() {
+    this.storageSVC.GetByParameter('dor', 'eventID', this.getId).subscribe((res: any) => {
+      this.dor = res[0] ? res[0].dor : '';
+      console.log(this.dor);
+    });
+  }
+
   saveAndClose() {
-    this.onClose.emit();
+    console.log(this.dor);
+    let dorDB = {
+      eventID: this.getId,
+      dor: this.dor
+    };
+    this.storageSVC.InsertCustomID('dor', this.getId, dorDB);
+    this.toggleShowDor();
   }
 
   closeModal() {

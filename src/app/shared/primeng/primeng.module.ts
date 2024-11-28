@@ -13,7 +13,8 @@ import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { InputSwitchModule } from 'primeng/inputswitch';
-
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import { DialogModule } from 'primeng/dialog';
 const PrimeNGModules = [
   InputTextModule,
   StepsModule,
@@ -26,7 +27,10 @@ const PrimeNGModules = [
   MessagesModule,
   MessageModule,
   ProgressSpinnerModule,
-  InputSwitchModule
+  InputSwitchModule,
+  InputTextareaModule,
+  DynamicDialogModule,
+  DialogModule
 ];
 
 @NgModule({
