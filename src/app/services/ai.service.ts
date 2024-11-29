@@ -29,7 +29,7 @@ export class AiService {
       maxOutputTokens: 100, // limit output
     };
     this.model = genAI.getGenerativeModel({
-      model: 'gemini-pro', // or 'gemini-pro-vision'
+      model: 'gemini-1.5-pro', // or 'gemini-pro-vision'
       ...generationConfig,
     });
   }
