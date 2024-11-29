@@ -34,6 +34,11 @@ export class TasksModalComponent implements OnInit {
 
   validateDOR(task: TaskModel, event: any) {
     event.stopPropagation();
+
+    this.event.selectedTask = task;
+    this.storageSVC.Update(this.getId, 'events', this.event);
+    this.onSelectTask.emit(task);
+    
     this.getIA(task);
     console.log('validate task');
   }
