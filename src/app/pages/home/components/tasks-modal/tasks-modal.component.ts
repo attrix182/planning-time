@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { TaskModel } from 'src/app/models/task.model';
 import { AiService } from 'src/app/services/ai.service';
 import { StorageService } from 'src/app/services/storage.service';
-
+import * as marked from 'marked';
 @Component({
   selector: 'fc-tasks-modal',
   templateUrl: './tasks-modal.component.html',
@@ -40,19 +40,27 @@ export class TasksModalComponent implements OnInit {
 
   async getIA(task: TaskModel) {
     this.loadingIA = true;
-    if (this.iaResponse) {
-      this.showIAmodal = true;
-      return;
-    }
-    const prompt = `Analiza si la tarea de JIRA especificada en el siguiente XML cumple con los criterios establecidos en el Definition of Ready (DOR) proporcionado. Después de analizarlo, identifica las áreas que no cumplen con el DOR y sugiere mejoras para alinearla con los criterios establecidos. (La tarea de JIRA es: ${JSON.stringify(
-      task
-    )}) y el DOR es: ${this.dor}`;
+    const prompt = `Evalúa si la tarea de JIRA cumple con el Definition of Ready (DOR), identificando:
+
+    -Aspectos que cumplen con el DOR
+    -Áreas que no cumplen
+    -Sugerencias específicas de mejora
+    
+    Entrada:
+    
+    Tarea de JIRA: ${JSON.stringify(task)}
+    Definition of Ready (DOR): ${this.dor}
+    
+    El análisis debe ser directo, enfocándose en los puntos críticos para preparar la tarea para su implementación.`;
 
     const result = await this.AIservice.model.generateContent(prompt);
     const response = await result.response;
-    this.iaResponse = response.text();
+    this.iaResponse = marked.parse(response.text());
     this.loadingIA = false;
-    this.showIAmodal = true;
+    console.log(this.iaResponse);
+
+      this.showIAmodal = true;
+   
   }
 
   setDor(dor: any) {

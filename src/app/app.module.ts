@@ -19,7 +19,7 @@ import { TasksModalComponent } from './pages/home/components/tasks-modal/tasks-m
 import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
 import { ScaleModalComponent } from './pages/home/components/scale-modal/scale-modal.component';
 import { DorDefinitionComponent } from './components/dor-definition/dor-definition.component';
-
+import { MarkdownModule, MarkdownService } from 'ngx-markdown';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +33,7 @@ import { DorDefinitionComponent } from './components/dor-definition/dor-definiti
     AdminProfileComponent,
     ScaleModalComponent,
     DorDefinitionComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -44,7 +45,9 @@ import { DorDefinitionComponent } from './components/dor-definition/dor-definiti
     PrimengModule,
     BrowserAnimationsModule,
     QrCodeModule,
+    MarkdownModule.forRoot()
   ],
+  providers: [MarkdownService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
