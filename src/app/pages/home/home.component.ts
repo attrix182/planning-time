@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
     this.showCreate = false;
     $event ? this.eventID = $event.toString() : this.eventID;
-    this.storageSvc.GetByParameter('events', 'id', this.eventID).subscribe((res: any) => {
+    this.storageSvc.getByParameter('events', 'id', this.eventID).subscribe((res: any) => {
       this.isLoading = false;
       this.event = res[0];
       this.succesfullyCreate = true;

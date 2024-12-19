@@ -15,7 +15,7 @@ export interface TaskModel {
   reporter: Reporter;
   labels: Labels;
   created: Created;
-  updated: Updated;
+  updated: updated;
   component: Component;
   due: Due;
   votes: Votes;
@@ -167,7 +167,7 @@ export interface Created {
   _text: string;
 }
 
-export interface Updated {
+export interface updated {
   _text: string;
 }
 

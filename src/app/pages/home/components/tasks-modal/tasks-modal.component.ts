@@ -4,13 +4,14 @@ import { TaskModel } from 'src/app/models/task.model';
 import { AiService } from 'src/app/services/ai.service';
 import { StorageService } from 'src/app/services/storage.service';
 import * as marked from 'marked';
+import * as convert from 'xml-js';
 @Component({
   selector: 'fc-tasks-modal',
   templateUrl: './tasks-modal.component.html',
   styleUrls: ['./tasks-modal.component.scss']
 })
 export class TasksModalComponent implements OnInit {
-  convert = require('xml-js');
+  convert: any = convert;
   taskXML: string = '';
   task: TaskModel;
   tasks: any = []; //TaskModel[] = [];
@@ -36,7 +37,7 @@ export class TasksModalComponent implements OnInit {
     event.stopPropagation();
 
     this.event.selectedTask = task;
-    this.storageSVC.Update(this.getId, 'events', this.event);
+    this.storageSVC.update(this.getId, 'events', this.event);
     this.onSelectTask.emit(task);
     
     this.getIA(task);
@@ -91,21 +92,21 @@ export class TasksModalComponent implements OnInit {
       tasks: this.tasks
     };
 
-    this.storageSVC.InsertCustomID('tasks', this.getId, tasksDB);
+    this.storageSVC.insertCustomID('tasks', this.getId, tasksDB);
 
     this.taskXML = '';
   }
 
   selectTask(task: TaskModel) {
     this.event.selectedTask = task;
-    this.storageSVC.Update(this.getId, 'events', this.event);
+    this.storageSVC.update(this.getId, 'events', this.event);
     this.onSelectTask.emit(task);
     this.onClose.emit();
   }
 
   unSelectTask() {
     this.event.selectedTask = null;
-    this.storageSVC.Update(this.getId, 'events', this.event);
+    this.storageSVC.update(this.getId, 'events', this.event);
     this.onClose.emit();
   }
 
@@ -121,19 +122,19 @@ export class TasksModalComponent implements OnInit {
     };
 
     if (task.key._text == this.selected.key._text) this.unSelectTask();
-    this.storageSVC.InsertCustomID('tasks', this.getId, tasksDB);
+    this.storageSVC.insertCustomID('tasks', this.getId, tasksDB);
   }
 
   getTasks() {
     console.log(this.getId);
-    this.storageSVC.GetByParameter('tasks', 'eventID', this.getId).subscribe((res: any) => {
+    this.storageSVC.getByParameter('tasks', 'eventID', this.getId).subscribe((res: any) => {
       this.tasks = res[0] ? res[0].tasks : [];
       console.log(this.tasks);
     });
   }
 
   getDor() {
-    this.storageSVC.GetByParameter('dor', 'eventID', this.getId).subscribe((res: any) => {
+    this.storageSVC.getByParameter('dor', 'eventID', this.getId).subscribe((res: any) => {
       this.dor = res[0] ? res[0].dor : '';
       console.log(this.dor);
     });
@@ -145,7 +146,7 @@ export class TasksModalComponent implements OnInit {
       eventID: this.getId,
       dor: this.dor
     };
-    this.storageSVC.InsertCustomID('dor', this.getId, dorDB);
+    this.storageSVC.insertCustomID('dor', this.getId, dorDB);
     this.toggleShowDor();
   }
 

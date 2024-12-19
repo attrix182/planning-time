@@ -74,7 +74,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   }
 
   removeUser(id: string) {
-    this.storageSvc.Delete('activeUsers', id).then(() => {
+    this.storageSvc.delete('activeUsers', id).then(() => {
       this.optionSelected = undefined;
       this.userName = undefined;
     });
@@ -92,7 +92,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
 
   getActiveUsers() {
     console.log(this.getId);
-    this.storageSvc.GetByParameter('activeUsers', 'sesion', this.getId).subscribe((u) => {
+    this.storageSvc.getByParameter('activeUsers', 'sesion', this.getId).subscribe((u) => {
       this.activeUsers = u;
       this.setActiveUserInSesion();
     });
@@ -103,7 +103,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
 
     let aux = this.getId;
 
-    this.storageSvc.GetByParameter('events', 'id', aux).subscribe((res: any) => {
+    this.storageSvc.getByParameter('events', 'id', aux).subscribe((res: any) => {
       this.event = res[0];
       this.loading = false;
       this.options = res[0].options ? res[0].options : ['1', '2', '3', '5', '8', '13', '?', '☕'];
@@ -140,7 +140,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     let exist = this.activeUsers.findIndex((u) => u.name == this.userName);
     if (!user.name) return;
     if (exist == -1) {
-      this.storageSvc.Insert('activeUsers', user);
+      this.storageSvc.insert('activeUsers', user);
     }
     this.userActive = this.getUser();
   }
@@ -150,7 +150,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     let user = { name: this.userName, active: active, sesion: this.getId };
     let exist = this.activeUsers.findIndex((u) => u.name == this.userName && u.sesion == this.getId);
     if (!user.name) return;
-    if (exist == -1) this.storageSvc.Update('activeUsers', this.activeUsers[exist].id, user);
+    if (exist == -1) this.storageSvc.update('activeUsers', this.activeUsers[exist].id, user);
   }
 
   selectOption(opt: string) {
@@ -168,7 +168,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     let result = { user: this.userName, vote: this.optionSelected, sesion: this.getId };
     let exist = this.results.findIndex((r) => r.user == result.user);
     if (exist != -1) return;
-    this.storageSvc.Insert(this.getId, result);
+    this.storageSvc.insert(this.getId, result);
   }
 
   cantVoteShowResults() {
@@ -187,7 +187,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   }
 
   getResults() {
-    this.storageSvc.GetAll(this.getId).subscribe((res: any) => {
+    this.storageSvc.getAll(this.getId).subscribe((res: any) => {
       this.results = res;
       this.restartAnswered();
       this.setAnswered();
@@ -196,7 +196,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   }
 
   getResultsVisibility() {
-    this.storageSvc.GetByParameter('events', 'id', this.getId).subscribe((res: any) => {
+    this.storageSvc.getByParameter('events', 'id', this.getId).subscribe((res: any) => {
       this.event = res[0];
       this.showResults = this.event.resultsVisibility;
     });
@@ -209,13 +209,13 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
       return;
     }
     this.event.resultsVisibility = true;
-    this.storageSvc.Update(this.getId, 'events', this.event);
+    this.storageSvc.update(this.getId, 'events', this.event);
     this.showResults = true;
   }
 
   hideResults() {
     this.event.resultsVisibility = false;
-    this.storageSvc.Update(this.getId, 'events', this.event);
+    this.storageSvc.update(this.getId, 'events', this.event);
     this.showResults = false;
     this.restartAnswered();
   }
@@ -263,7 +263,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     this.alertService.confirmAlert('¿Desea reiniciar la votación?').then((confirm) => {
       if (confirm) {
         this.hideResults();
-        this.storageSvc.DeleteColecction(this.getId.trim()).then(() => {
+        this.storageSvc.deleteCollection(this.getId.trim()).then(() => {
           this.restartAnswered();
           this.getInfo();
           this.optionSelected = undefined;
@@ -297,7 +297,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
       });
       return;
     }
-    this.storageSvc.Delete('activeUsers', user.id).then(() => {
+    this.storageSvc.delete('activeUsers', user.id).then(() => {
       console.warn(user.name + ' deleted');
     });
   }

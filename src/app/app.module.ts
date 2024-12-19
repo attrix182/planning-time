@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +19,9 @@ import { AdminProfileComponent } from './components/admin-profile/admin-profile.
 import { ScaleModalComponent } from './pages/home/components/scale-modal/scale-modal.component';
 import { DorDefinitionComponent } from './components/dor-definition/dor-definition.component';
 import { MarkdownModule, MarkdownService } from 'ngx-markdown';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,13 +43,13 @@ import { MarkdownModule, MarkdownService } from 'ngx-markdown';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
     PrimengModule,
     BrowserAnimationsModule,
     QrCodeModule,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+
   ],
-  providers: [MarkdownService],
+  providers: [MarkdownService, provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), provideFirestore(() => getFirestore())],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -32,7 +32,7 @@ export class ScaleModalComponent implements OnInit {
 
   setScale() {
     this.event.options = this.scaleInput.split(',');
-    this.storageSVC.Update(this.getId, 'events', this.event);
+    this.storageSVC.update(this.getId, 'events', this.event);
     this.onClose.emit();
   }
 

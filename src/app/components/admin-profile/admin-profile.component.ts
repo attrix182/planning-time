@@ -19,7 +19,7 @@ export class AdminProfileComponent implements OnInit {
     console.log(this.userActive);
   }
   saveAndClose() {
-    this.storageSVC.Update(this.userActive.id, 'activeUsers', this.userActive)
+    this.storageSVC.update(this.userActive.id, 'activeUsers', this.userActive)
     this.onClose.emit();
   }
   

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { StorageService } from 'src/app/services/storage.service';
@@ -19,7 +18,6 @@ export class CreateFormComponent extends FormValidator implements OnInit {
     private fb: UntypedFormBuilder,
     private messageService: MessageService,
     private storageSvc: StorageService,
-    private cloudFireStore: AngularFirestore
   ) {
     super();
   }
@@ -39,11 +37,11 @@ export class CreateFormComponent extends FormValidator implements OnInit {
   createSesion() {
     this.isLoading = true;
     let form = this.formGroup.value;
-    form.id = this.cloudFireStore.createId();
+    form.id = Math.random().toString(36).substring(2);
     form.options = ['1', '2', '3', '5', '8', '13', '?', '☕'];
     form.active = true;
     this.storageSvc
-      .InsertCustomID('events', form.id, form)
+      .insertCustomID('events', form.id, form)
       .then((res) => {
         this.isLoading = false;
         this.messageService.add({ severity: 'success', summary: '¡Creada!', detail: 'Sesión creada con éxito' });
