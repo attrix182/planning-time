@@ -122,7 +122,6 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   }
 
   getActiveUsers() {
-    console.log(this.getId);
     this.storageSvc.getByParameter('activeUsers', 'sesion', this.getId).subscribe((u) => {
       this.activeUsers = u;
       this.setActiveUserInSesion();
@@ -139,7 +138,6 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
       this.loading = false;
       this.options = res[0].options ? res[0].options : ['1', '2', '3', '5', '8', '13', '?', '☕'];
       this.selectedTask = res[0].selectedTask;
-      console.log(res[0]);
       this.validate();
       this.getResults();
     });
@@ -346,6 +344,5 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
 
   selectTask(selectedTask: TaskModel) {
     this.selectedTask = selectedTask;
-    console.log(selectedTask);
   }
 }

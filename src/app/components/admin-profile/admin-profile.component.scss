@@ -13,36 +13,38 @@
   &_card {
     background-color: white;
     border-radius: 8px;
-    width: 300px;
+    max-width: 400px;
     height: 460px;
     display: flex;
     justify-content: center;
-    padding: 15px;
+    padding: 12px;
     position: relative;
 
     &_header {
       display: flex;
       align-items: center;
-      width: 300px;
+      justify-content: space-between;
+      width: 100%;
       border-bottom: 1px solid lightgray;
       position: absolute;
-      padding: 5px;
+      padding: 5px 15px;
+      top: 0;
+      left: 0;
+      right: 0;
 
       &_title {
-        font-size: 1.5em;
+        font-size: 1.1em;
         font-weight: bold;
         white-space: nowrap;
-        padding-left: 20px;
+        flex: 1;
         margin-bottom: 5px;
       }
 
       &_actions {
-        display: inline-flex;
+        display: flex;
         justify-content: flex-end;
         align-items: center;
-        margin: auto;
         gap: 10px;
-        width: 300px;
         margin-bottom: 5px;
 
         &-input {
@@ -61,6 +63,14 @@
       flex-direction: column;
       gap: 20px;
 
+      &-select-language {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+      }
+
       &_facilitator {
         cursor: help;
         gap: 10px;
@@ -75,7 +85,7 @@
       position: absolute;
       border-top: 1px solid lightgray;
       bottom: 10px;
-      width: 300px;
+      max-width: 400px;
       padding: 10px;
 
       &_actions {

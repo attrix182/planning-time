@@ -43,7 +43,6 @@ export class StorageService {
   }
 
   getAll(collectionName: string): Observable<any[]> {
-    console.log('getAll', collectionName);
     const colRef = collection(this.firestore, collectionName);
     return collectionSnapshots(colRef).pipe(
       map((actions) =>
@@ -57,7 +56,6 @@ export class StorageService {
   }
 
   getAllOrderByDate(collectionName: string): Observable<any[]> {
-    console.log('getAll', collectionName);
     const colRef = collection(this.firestore, collectionName);
     const q = query(colRef, orderBy('created_date', 'desc'));
     return collectionSnapshots((q)).pipe(
@@ -73,7 +71,6 @@ export class StorageService {
 
   getByParameter(collectionName: string, parametro: string, value: any): Observable<any[]> | any {
     if(!value || !parametro) return;
-    console.log('get', collectionName, parametro, value);
     const colRef = collection(this.firestore, collectionName);
     const q = query(colRef, where(parametro, '==', value));
     return collectionSnapshots(q).pipe(
@@ -89,7 +86,6 @@ export class StorageService {
 
   getByParameterContains(collectionName: string, parametro: string, value: any): Observable<any[]> | any {
     if(!value || !parametro) return;
-    console.log('get', collectionName, parametro, value);
     const colRef = collection(this.firestore, collectionName);
 
     const q = query(colRef, where(parametro, 'array-contains', value));
@@ -106,7 +102,6 @@ export class StorageService {
 
   getByParameterContainsOrderByDate(collectionName: string, parametro: string, value: any): Observable<any[]> | any {
     if(!value || !parametro) return;
-    console.log('get', collectionName, parametro, value);
     const colRef = collection(this.firestore, collectionName);
 
     const q = query(colRef, where(parametro, 'array-contains', value), orderBy('created_date', 'desc'));
@@ -122,7 +117,6 @@ export class StorageService {
   }
 
   getAllOnce(collectionName: string): Observable<any[]> {
-    console.log('getAllOnce', collectionName);
     const colRef = collection(this.firestore, collectionName);
     return collectionSnapshots(colRef).pipe(
       take(1), // Limita la suscripción a un solo valor

@@ -5,6 +5,19 @@
       <div class="admin-modal_card_header_actions"></div>
     </div>
     <div class="admin-modal_card_body">
+      <div class="admin-modal_card_body-select-language">
+        <div class="admin-modal_card_body-select-language_title">
+          {{ 'COMMON.LANGUAGE' | translate }}
+        </div>
+        <p-dropdown 
+          [options]="languages" 
+          [(ngModel)]="currentLanguage" 
+          optionLabel="label" 
+          optionValue="code"
+          (onChange)="changeLanguage($event.value)"
+          placeholder="{{ 'COMMON.LANGUAGE' | translate }}">
+        </p-dropdown>
+      </div>
       <div>
         {{ 'ADMIN_PROFILE.CURRENT_NAME' | translate }} <strong>{{ userActive?.name }}</strong>
       </div>

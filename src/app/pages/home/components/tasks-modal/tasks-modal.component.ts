@@ -57,9 +57,8 @@ export class TasksModalComponent implements OnInit {
     this.event.selectedTask = task;
     this.storageSVC.update(this.getId, 'events', this.event);
     this.onSelectTask.emit(task);
-    
+  
     this.getIA(task);
-    console.log('validate task');
   }
 
   async getIA(task: TaskModel) {
@@ -81,8 +80,6 @@ export class TasksModalComponent implements OnInit {
     const response = await result.response;
     this.iaResponse = marked.parse(response.text());
     this.loadingIA = false;
-    console.log(this.iaResponse);
-
       this.showIAmodal = true;
    
   }
@@ -144,22 +141,18 @@ export class TasksModalComponent implements OnInit {
   }
 
   getTasks() {
-    console.log(this.getId);
     this.storageSVC.getByParameter('tasks', 'eventID', this.getId).subscribe((res: any) => {
       this.tasks = res[0] ? res[0].tasks : [];
-      console.log(this.tasks);
     });
   }
 
   getDor() {
     this.storageSVC.getByParameter('dor', 'eventID', this.getId).subscribe((res: any) => {
       this.dor = res[0] ? res[0].dor : '';
-      console.log(this.dor);
     });
   }
 
   saveAndClose() {
-    console.log(this.dor);
     let dorDB = {
       eventID: this.getId,
       dor: this.dor

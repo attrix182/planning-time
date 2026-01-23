@@ -55,7 +55,6 @@ export class ScaleModalComponent implements OnInit {
 
   changeScale(option) {
     this.scaleInput = option.values;
-    console.log(option);
   }
 
   saveAndClose() {
