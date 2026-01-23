@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { StorageService } from 'src/app/services/storage.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/services/language.service';
+import { NotificationsService, NotificationSettings } from 'src/app/services/notifications.service';
 
 @Component({
   selector: 'fc-admin-profile-modal',
@@ -19,14 +20,17 @@ export class AdminProfileComponent implements OnInit {
     { code: 'es', label: 'Español' },
     { code: 'en', label: 'English' }
   ];
+  notificationSettings: NotificationSettings;
 
   constructor(
     private router: Router, 
     private storageSVC:StorageService,
     public translate: TranslateService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private notificationsService: NotificationsService
   ) {
     this.parseUrl();
+    this.notificationSettings = this.notificationsService.getSettings();
   }
 
   private parseUrl(): void {
@@ -60,8 +64,14 @@ export class AdminProfileComponent implements OnInit {
     this.languageService.setLanguage(lang, true);
   }
   saveAndClose() {
-    this.storageSVC.update(this.userActive.id, 'activeUsers', this.userActive)
+    this.storageSVC.update(this.userActive.id, 'activeUsers', this.userActive);
+    this.notificationsService.saveSettings(this.notificationSettings);
     this.onClose.emit();
+  }
+
+  updateNotificationSettings(setting: keyof NotificationSettings, value: boolean): void {
+    this.notificationSettings[setting] = value;
+    this.notificationsService.saveSettings(this.notificationSettings);
   }
   
   changeName(){

@@ -46,3 +46,42 @@ body {
   font-family: "Roboto_Slab";
   src: local("Roboto_Slab"), url(./assets/fonts/Roboto_Slab/RobotoSlab-VariableFont_wght.ttf) format("truetype");
 }
+
+// Estilos mejorados para notificaciones Toast
+::ng-deep .custom-toast {
+  .p-toast-message {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    animation: slideInDown 0.3s ease-out;
+  }
+
+  .p-toast-message-content {
+    padding: 1rem 1.5rem;
+  }
+
+  .p-toast-message-icon {
+    font-size: 1.5rem;
+  }
+
+  .p-toast-summary {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .p-toast-detail {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

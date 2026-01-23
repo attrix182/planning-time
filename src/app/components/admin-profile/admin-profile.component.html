@@ -18,17 +18,17 @@
           placeholder="{{ 'COMMON.LANGUAGE' | translate }}">
         </p-dropdown>
       </div>
-      <div>
-        {{ 'ADMIN_PROFILE.CURRENT_NAME' | translate }} <strong>{{ userActive?.name }}</strong>
+      <div class="admin-modal_card_body_name-section">
+        <div class="name-label">{{ 'ADMIN_PROFILE.CURRENT_NAME' | translate }}</div>
+        <div class="name-value"><strong>{{ userActive?.name }}</strong></div>
+        <button
+          pButton
+          pRipple
+          [label]="'ADMIN_PROFILE.CHANGE_NAME' | translate"
+          (click)="changeName()"
+          class="p-button-raised p-button-primary change-name-button"
+        ></button>
       </div>
-
-      <button
-        pButton
-        pRipple
-        [label]="'ADMIN_PROFILE.CHANGE_NAME' | translate"
-        (click)="changeName()"
-        class="p-button-raised p-button-primary"
-      ></button>
 
       <div
         class="card flex justify-content-center admin-modal_card_body_facilitator"
@@ -39,6 +39,33 @@
           class="admin-modal_card_body_facilitator-switch"
           [(ngModel)]="userActive.facilitator"
         ></p-inputSwitch>
+      </div>
+
+      <div class="admin-modal_card_body_notifications">
+        <div class="admin-modal_card_body_notifications_title">
+          <i class="pi pi-bell"></i> {{ 'ADMIN_PROFILE.NOTIFICATIONS' | translate }}
+        </div>
+        <div class="admin-modal_card_body_notifications_item">
+          <label>{{ 'ADMIN_PROFILE.SOUNDS' | translate }}</label>
+          <p-inputSwitch
+            [(ngModel)]="notificationSettings.soundsEnabled"
+            (onChange)="updateNotificationSettings('soundsEnabled', $event.checked)"
+          ></p-inputSwitch>
+        </div>
+        <div class="admin-modal_card_body_notifications_item">
+          <label>{{ 'ADMIN_PROFILE.VIBRATIONS' | translate }}</label>
+          <p-inputSwitch
+            [(ngModel)]="notificationSettings.vibrationsEnabled"
+            (onChange)="updateNotificationSettings('vibrationsEnabled', $event.checked)"
+          ></p-inputSwitch>
+        </div>
+        <div class="admin-modal_card_body_notifications_item">
+          <label>{{ 'ADMIN_PROFILE.TOAST_NOTIFICATIONS' | translate }}</label>
+          <p-inputSwitch
+            [(ngModel)]="notificationSettings.toastEnabled"
+            (onChange)="updateNotificationSettings('toastEnabled', $event.checked)"
+          ></p-inputSwitch>
+        </div>
       </div>
     </div>
     <footer class="admin-modal_card_footer">

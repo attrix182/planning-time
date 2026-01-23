@@ -76,7 +76,27 @@
     "CURRENT_NAME": "Your current name is:",
     "CHANGE_NAME": "Change your name",
     "FACILITATOR_TOOLTIP": "As a facilitator you can show/hide results, restart the session and remove participants",
-    "FACILITATOR_LABEL": "I am a facilitator"
+    "FACILITATOR_LABEL": "I am a facilitator",
+    "NOTIFICATIONS": "Notifications",
+    "SOUNDS": "Sounds",
+    "VIBRATIONS": "Vibrations",
+    "TOAST_NOTIFICATIONS": "Visual notifications"
+  },
+  "NOTIFICATIONS": {
+    "VOTE": "Vote",
+    "RESULTS": "Results",
+    "RESTART": "Restart",
+    "PARTICIPANT": "Participant",
+    "TASK": "Task",
+    "START": "Start",
+    "SOMEONE_VOTED": "{{name}} has voted",
+    "RESULTS_SHOWN": "Results have been shown",
+    "RESULTS_HIDDEN": "Results have been hidden",
+    "VOTING_RESTARTED": "Voting has been restarted",
+    "NEW_PARTICIPANT": "{{name}} has joined the session",
+    "PARTICIPANT_LEFT": "{{name}} has left the session",
+    "TASK_SELECTED": "Task selected: {{task}}",
+    "VOTING_STARTED": "A new voting has started!"
   },
   "PARTICIPANT_VIEW": {
     "CHOOSE_CARD": "Choose a card!",

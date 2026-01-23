@@ -76,7 +76,27 @@
     "CURRENT_NAME": "Tu nombre actual es:",
     "CHANGE_NAME": "Cambiar tu nombre",
     "FACILITATOR_TOOLTIP": "Siendo facilitador puedes mostrar/ocultar resultados, reiniciar la sesión y eliminar participantes",
-    "FACILITATOR_LABEL": "Soy facilitador"
+    "FACILITATOR_LABEL": "Soy facilitador",
+    "NOTIFICATIONS": "Notificaciones",
+    "SOUNDS": "Sonidos",
+    "VIBRATIONS": "Vibraciones",
+    "TOAST_NOTIFICATIONS": "Notificaciones visuales"
+  },
+  "NOTIFICATIONS": {
+    "VOTE": "Voto",
+    "RESULTS": "Resultados",
+    "RESTART": "Reinicio",
+    "PARTICIPANT": "Participante",
+    "TASK": "Tarea",
+    "START": "Inicio",
+    "SOMEONE_VOTED": "{{name}} ha votado",
+    "RESULTS_SHOWN": "Los resultados han sido mostrados",
+    "RESULTS_HIDDEN": "Los resultados han sido ocultados",
+    "VOTING_RESTARTED": "La votación ha sido reiniciada",
+    "NEW_PARTICIPANT": "{{name}} se ha unido a la sesión",
+    "PARTICIPANT_LEFT": "{{name}} ha abandonado la sesión",
+    "TASK_SELECTED": "Tarea seleccionada: {{task}}",
+    "VOTING_STARTED": "¡Comienza una nueva votación!"
   },
   "PARTICIPANT_VIEW": {
     "CHOOSE_CARD": "¡Elije una carta!",
