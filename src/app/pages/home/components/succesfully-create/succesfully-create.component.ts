@@ -21,7 +21,8 @@ export class SuccesfullyCreateComponent implements OnInit {
 
   ngOnInit(): void {
     const lang = this.languageService.getCurrentLanguage();
-    this.url = `${environment.url_deploy }/${lang}/sesion/${this.event.id}`;
+    const baseUrl = environment.url_deploy.replace(/\/+$/, ''); // Remover barras finales
+    this.url = `${baseUrl}/${lang}/sesion/${this.event.id}`;
   }
 
   copyLink() {
@@ -38,6 +39,7 @@ export class SuccesfullyCreateComponent implements OnInit {
 
   goToPanel() {
     const lang = this.languageService.getCurrentLanguage();
-    window.open(`${environment.url_deploy }/${lang}/sesion/${this.event.id}`);
+    const baseUrl = environment.url_deploy.replace(/\/+$/, ''); // Remover barras finales
+    window.open(`${baseUrl}/${lang}/sesion/${this.event.id}`);
   }
 }

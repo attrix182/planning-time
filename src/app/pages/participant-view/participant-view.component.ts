@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { EventSesion } from 'src/app/models/event.model';
 import { TaskModel } from 'src/app/models/task.model';
@@ -37,6 +37,7 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   constructor(
     private storageSvc: StorageService,
     private router: Router,
+    private route: ActivatedRoute,
     private fb: UntypedFormBuilder,
     private alertService: AlertService,
     private messageService: MessageService,
@@ -45,22 +46,35 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   ) {
     super();
     this.loading = true;
-    this.parseUrl();
-  }
-
-  private parseUrl(): void {
-    const urlSegments = this.router.url.split('/').filter(segment => segment);
-    // Si el primer segmento es un idioma, el ID está en el tercer segmento
-    if (urlSegments.length > 0 && ['es', 'en'].includes(urlSegments[0])) {
-      this.getId = (urlSegments[2] || '').trim();
-    } else {
-      this.getId = (urlSegments[1] || '').trim();
-    }
   }
 
   ngOnInit(): void {
+    this.parseUrl();
     this.initForm();
     this.getInfo();
+  }
+
+  private parseUrl(): void {
+    // Usar ActivatedRoute para obtener el parámetro 'id' de la ruta
+    // Usar snapshot para obtener el valor inmediatamente (síncrono)
+    const params = this.route.snapshot.params;
+    
+    if (params['id']) {
+      this.getId = params['id'].trim();
+    } else {
+      // Fallback: parsear manualmente si no hay parámetro (retrocompatibilidad)
+      // Esto puede pasar si alguien entra con una URL antigua sin idioma
+      const urlSegments = this.router.url.split('/').filter(segment => segment);
+      const sesionIndex = urlSegments.indexOf('sesion');
+      
+      if (sesionIndex !== -1 && urlSegments.length > sesionIndex + 1) {
+        // El ID está después de 'sesion'
+        this.getId = urlSegments[sesionIndex + 1].trim();
+      } else if (urlSegments.length > 0 && !['es', 'en'].includes(urlSegments[0])) {
+        // Si no hay idioma y no hay 'sesion', tomar el primer segmento como ID
+        this.getId = urlSegments[0].trim();
+      }
+    }
   }
 
   getInfo() {

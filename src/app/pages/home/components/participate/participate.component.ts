@@ -17,11 +17,28 @@ export class ParticipateComponent  {
 
   ngOnInit(){
     const urlSegments = this.router.url.split('/').filter(segment => segment);
-    // Si el primer segmento es un idioma, tomar el siguiente, sino tomar el primero
+    
+    // Detectar si hay idioma en la URL
     if (urlSegments.length > 0 && ['es', 'en'].includes(urlSegments[0])) {
-      this.sesionId = urlSegments[1] || '';
+      // URL con idioma: /es/sesion/:id o /en/sesion/:id
+      const sesionIndex = urlSegments.indexOf('sesion');
+      if (sesionIndex !== -1 && urlSegments.length > sesionIndex + 1) {
+        // El ID está después de 'sesion'
+        this.sesionId = urlSegments[sesionIndex + 1] || '';
+      } else {
+        // Si no hay 'sesion', tomar el segundo segmento como ID
+        this.sesionId = urlSegments[1] || '';
+      }
     } else {
-      this.sesionId = urlSegments[0] || '';
+      // URL retrocompatible sin idioma: /sesion/:id
+      const sesionIndex = urlSegments.indexOf('sesion');
+      if (sesionIndex !== -1 && urlSegments.length > sesionIndex + 1) {
+        // El ID está después de 'sesion'
+        this.sesionId = urlSegments[sesionIndex + 1] || '';
+      } else {
+        // Fallback: tomar el primer segmento si no hay 'sesion'
+        this.sesionId = urlSegments[0] || '';
+      }
     }
   }
 
