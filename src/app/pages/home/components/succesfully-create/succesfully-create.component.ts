@@ -1,35 +1,43 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { EventSesion } from 'src/app/models/event.model';
 import { environment } from 'src/environments/environment';
+import { LanguageService } from 'src/app/services/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'fc-succesfully-create',
   templateUrl: './succesfully-create.component.html',
   styleUrls: ['./succesfully-create.component.scss']
 })
-export class SuccesfullyCreateComponent {
+export class SuccesfullyCreateComponent implements OnInit {
   @Input() event: EventSesion;
   copied: boolean = false;
   url: string = '';
-  messageSvc = inject(MessageService)
+  messageSvc = inject(MessageService);
+  languageService = inject(LanguageService);
+  translate = inject(TranslateService);
 
 
   ngOnInit(): void {
-    this.url = `${environment.url_deploy }/sesion/${this.event.id}`;
+    const lang = this.languageService.getCurrentLanguage();
+    this.url = `${environment.url_deploy }/${lang}/sesion/${this.event.id}`;
   }
 
   copyLink() {
     navigator.clipboard.writeText(this.url);
     this.copied = true;
-    this.messageSvc.add({
-      severity: 'success',
-      summary: 'Link Copiado',
-      detail: 'El link ha sido copiado al portapapeles'
+    this.translate.get(['SUCCESSFULLY_CREATE.LINK_COPIED', 'SUCCESSFULLY_CREATE.LINK_COPIED_DETAIL']).subscribe(translations => {
+      this.messageSvc.add({
+        severity: 'success',
+        summary: translations['SUCCESSFULLY_CREATE.LINK_COPIED'],
+        detail: translations['SUCCESSFULLY_CREATE.LINK_COPIED_DETAIL']
+      });
     });
   }
 
   goToPanel() {
-    window.open(`${environment.url_deploy }/sesion/${this.event.id}`);
+    const lang = this.languageService.getCurrentLanguage();
+    window.open(`${environment.url_deploy }/${lang}/sesion/${this.event.id}`);
   }
 }

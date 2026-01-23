@@ -1,0 +1,116 @@
+{
+  "LANDING": {
+    "TITLE": "Informacion sobre el sitio",
+    "WHAT_IS": "¿Que es Planning Time?",
+    "WHAT_IS_DESC": "Planning Time es una plataforma web en la que puedes generar una sesión de estimación de tareas en simples pasos.",
+    "HOW_WORKS": "¿Como funciona?",
+    "HOW_WORKS_DESC": "Debes ingresar nombre de equipo, luego se disponibiliza un QR y un Link, los cuales puedes compartir con quienes desees que participen de la estimación.",
+    "HOW_STARTED": "¿Como surgio?",
+    "HOW_STARTED_DESC": "Planning Time surge de la necesidad de obtener y establecer de manera sencilla y rapida un puntaje para cada tarea del sprint.",
+    "PROBLEMS": "¿Problemas o sugerencias?",
+    "PROBLEMS_DESC": "Si te surgío algun inconveniente, o tenes alguna idea para mejorar la plataforma",
+    "CONTACT": "Podes escribirme a:",
+    "CONTACT_SUBJECT": "con el asunto \"Planning Time\"",
+    "BUTTON_PLANNING": "Planning time",
+    "BUTTON_REPO": "Repositorio",
+    "BUTTON_PORTFOLIO": "Mi portfolio"
+  },
+  "HOME": {
+    "WELCOME": "Bienvenido a Planning Time",
+    "WHAT_DO": "¿Que quieres hacer?",
+    "CREATE": "Crear",
+    "PARTICIPATE": "Participar",
+    "INFO_TOOLTIP": "Información sobre la web"
+  },
+  "CREATE_FORM": {
+    "TITLE": "Crear una sesión",
+    "SUBTITLE": "¿Como se llama tu equipo?",
+    "TEAM_PLACEHOLDER": "Nombre del equipo",
+    "BACK": "Volver",
+    "CREATE": "Crear",
+    "SUCCESS_MESSAGE": "Sesión creada con éxito",
+    "ERROR_MESSAGE": "Error al crear la sesión"
+  },
+  "PARTICIPATE": {
+    "TITLE": "Participar",
+    "SUBTITLE": "Ingrese el código de la sesión",
+    "CODE_PLACEHOLDER": "Código..",
+    "BACK": "Volver",
+    "ENTER": "Ingresar"
+  },
+  "TASKS_MODAL": {
+    "MANAGE_TASKS": "Administrar tareas",
+    "DOR": "Definition of ready - DOR",
+    "XML_TOOLTIP": "Dentro de la incidencia, en los 3 puntos, busca 'Exportar XML' y pegalo aquí",
+    "XML_PLACEHOLDER": "XML incidencia JIRA",
+    "ADD_TASK": "Agregar tarea",
+    "VIEW_TASKS": "Ver tareas",
+    "DEFINE_DOR": "Definir DOR",
+    "CLOSE": "Cerrar",
+    "SAVE": "Guardar",
+    "TASK_ANALYSIS": "Análisis de la tarea"
+  },
+  "SCALE_MODAL": {
+    "TITLE": "Cambiar escala de votación",
+    "SUGGESTED_SCALES": "Escalas sugeridas:",
+    "SCALE_TOOLTIP": "Puedes personalizar la escala, Ej: 1,2,3,🚀,🍕",
+    "SCALE_PLACEHOLDER": "Sigue el formato: 1,2,3,6",
+    "CHANGE": "Cambiar",
+    "CANCEL": "Cancelar"
+  },
+  "COMMON": {
+    "LANGUAGE": "Idioma",
+    "SPANISH": "Español",
+    "ENGLISH": "Inglés",
+    "YES": "Si",
+    "CANCEL": "Cancelar",
+    "ACCEPT": "Aceptar",
+    "ENTER": "Ingresar"
+  },
+  "ALERTS": {
+    "ENTER_NAME": "Ingrese su nombre",
+    "ENTER": "Ingresar"
+  },
+  "ADMIN_PROFILE": {
+    "TITLE": "Administra tu perfil",
+    "CURRENT_NAME": "Tu nombre actual es:",
+    "CHANGE_NAME": "Cambiar tu nombre",
+    "FACILITATOR_TOOLTIP": "Siendo facilitador puedes mostrar/ocultar resultados, reiniciar la sesión y eliminar participantes",
+    "FACILITATOR_LABEL": "Soy facilitador"
+  },
+  "PARTICIPANT_VIEW": {
+    "CHOOSE_CARD": "¡Elije una carta!",
+    "AVERAGE": "Promedio:",
+    "CANT_CHANGE_NAME": "No puedes cambiar tu nombre si votaste",
+    "MANAGE_PROFILE": "Administra tu perfil",
+    "IMPORT_TASKS": "Importa tareas desde JIRA",
+    "SHOW_ACTIONS": "Mostrar acciones",
+    "SHOW": "Mostrar",
+    "HIDE": "Ocultar",
+    "RESTART": "Reiniciar",
+    "SHOW_RESULTS": "Mostrar resultados",
+    "HIDE_RESULTS": "Ocultar resultados",
+    "CHANGE_SCALE": "Cambiar escala",
+    "CANT_CHANGE_SCALE": "No puedes cambiar la escala si hay respuestas",
+    "CAN_CHANGE_SCALE": "Puedes cambiar la escala de votación",
+    "DELETE_PARTICIPANT": "Eliminar participante",
+    "CANT_VOTE_SHOW_RESULTS": "No puedes votar mientras los resultados son visibles",
+    "CANT_CHANGE_VOTE": "No puedes cambiar tu voto",
+    "NO_RESULTS_YET": "Aún no hay resultados para mostrar",
+    "RESTART_VOTING": "¿Desea reiniciar la votación?",
+    "CANT_DELETE_USER": "No puedes eliminar a un usuario si hay votos"
+  },
+  "SUCCESSFULLY_CREATE": {
+    "ACTIVATED": "Activado",
+    "DEACTIVATED": "Desactivado",
+    "SHARE_TOOLTIP": "Puedes compartir el QR o el Link, para que otros puedan participar",
+    "SESSION_DATA": "Datos de la sesión",
+    "TEAM": "Equipo:",
+    "CODE": "Código:",
+    "CODE_TOOLTIP": "Puedes utilizar este codigo en la parte Participar, de la home",
+    "COPY_LINK": "Copiar link",
+    "GO_TO_BOARD": "Ir al tablero",
+    "LINK_COPIED": "Link Copiado",
+    "LINK_COPIED_DETAIL": "El link ha sido copiado al portapapeles"
+  }
+}

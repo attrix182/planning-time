@@ -1,0 +1,116 @@
+{
+  "LANDING": {
+    "TITLE": "Site Information",
+    "WHAT_IS": "What is Planning Time?",
+    "WHAT_IS_DESC": "Planning Time is a web platform where you can generate a task estimation session in simple steps.",
+    "HOW_WORKS": "How does it work?",
+    "HOW_WORKS_DESC": "You must enter a team name, then a QR and a Link are made available, which you can share with those you want to participate in the estimation.",
+    "HOW_STARTED": "How did it start?",
+    "HOW_STARTED_DESC": "Planning Time arose from the need to obtain and establish a score for each sprint task in a simple and fast way.",
+    "PROBLEMS": "Problems or suggestions?",
+    "PROBLEMS_DESC": "If you encountered any inconvenience, or have an idea to improve the platform",
+    "CONTACT": "You can write to me at:",
+    "CONTACT_SUBJECT": "with the subject \"Planning Time\"",
+    "BUTTON_PLANNING": "Planning time",
+    "BUTTON_REPO": "Repository",
+    "BUTTON_PORTFOLIO": "My portfolio"
+  },
+  "HOME": {
+    "WELCOME": "Welcome to Planning Time",
+    "WHAT_DO": "What do you want to do?",
+    "CREATE": "Create",
+    "PARTICIPATE": "Participate",
+    "INFO_TOOLTIP": "Information about the website"
+  },
+  "CREATE_FORM": {
+    "TITLE": "Create a session",
+    "SUBTITLE": "What is your team name?",
+    "TEAM_PLACEHOLDER": "Team name",
+    "BACK": "Back",
+    "CREATE": "Create",
+    "SUCCESS_MESSAGE": "Session created successfully",
+    "ERROR_MESSAGE": "Error creating session"
+  },
+  "PARTICIPATE": {
+    "TITLE": "Participate",
+    "SUBTITLE": "Enter the session code",
+    "CODE_PLACEHOLDER": "Code..",
+    "BACK": "Back",
+    "ENTER": "Enter"
+  },
+  "TASKS_MODAL": {
+    "MANAGE_TASKS": "Manage tasks",
+    "DOR": "Definition of ready - DOR",
+    "XML_TOOLTIP": "Within the issue, in the 3 dots, look for 'Export XML' and paste it here",
+    "XML_PLACEHOLDER": "JIRA issue XML",
+    "ADD_TASK": "Add task",
+    "VIEW_TASKS": "View tasks",
+    "DEFINE_DOR": "Define DOR",
+    "CLOSE": "Close",
+    "SAVE": "Save",
+    "TASK_ANALYSIS": "Task analysis"
+  },
+  "SCALE_MODAL": {
+    "TITLE": "Change voting scale",
+    "SUGGESTED_SCALES": "Suggested scales:",
+    "SCALE_TOOLTIP": "You can customize the scale, Ex: 1,2,3,🚀,🍕",
+    "SCALE_PLACEHOLDER": "Follow the format: 1,2,3,6",
+    "CHANGE": "Change",
+    "CANCEL": "Cancel"
+  },
+  "COMMON": {
+    "LANGUAGE": "Language",
+    "SPANISH": "Spanish",
+    "ENGLISH": "English",
+    "YES": "Yes",
+    "CANCEL": "Cancel",
+    "ACCEPT": "Accept",
+    "ENTER": "Enter"
+  },
+  "ALERTS": {
+    "ENTER_NAME": "Enter your name",
+    "ENTER": "Enter"
+  },
+  "ADMIN_PROFILE": {
+    "TITLE": "Manage your profile",
+    "CURRENT_NAME": "Your current name is:",
+    "CHANGE_NAME": "Change your name",
+    "FACILITATOR_TOOLTIP": "As a facilitator you can show/hide results, restart the session and remove participants",
+    "FACILITATOR_LABEL": "I am a facilitator"
+  },
+  "PARTICIPANT_VIEW": {
+    "CHOOSE_CARD": "Choose a card!",
+    "AVERAGE": "Average:",
+    "CANT_CHANGE_NAME": "You cannot change your name if you voted",
+    "MANAGE_PROFILE": "Manage your profile",
+    "IMPORT_TASKS": "Import tasks from JIRA",
+    "SHOW_ACTIONS": "Show actions",
+    "SHOW": "Show",
+    "HIDE": "Hide",
+    "RESTART": "Restart",
+    "SHOW_RESULTS": "Show results",
+    "HIDE_RESULTS": "Hide results",
+    "CHANGE_SCALE": "Change scale",
+    "CANT_CHANGE_SCALE": "You cannot change the scale if there are responses",
+    "CAN_CHANGE_SCALE": "You can change the voting scale",
+    "DELETE_PARTICIPANT": "Remove participant",
+    "CANT_VOTE_SHOW_RESULTS": "You cannot vote while results are visible",
+    "CANT_CHANGE_VOTE": "You cannot change your vote",
+    "NO_RESULTS_YET": "There are no results to show yet",
+    "RESTART_VOTING": "Do you want to restart the voting?",
+    "CANT_DELETE_USER": "You cannot remove a user if there are votes"
+  },
+  "SUCCESSFULLY_CREATE": {
+    "ACTIVATED": "Activated",
+    "DEACTIVATED": "Deactivated",
+    "SHARE_TOOLTIP": "You can share the QR or the Link, so others can participate",
+    "SESSION_DATA": "Session data",
+    "TEAM": "Team:",
+    "CODE": "Code:",
+    "CODE_TOOLTIP": "You can use this code in the Participate section, on the home page",
+    "COPY_LINK": "Copy link",
+    "GO_TO_BOARD": "Go to board",
+    "LINK_COPIED": "Link Copied",
+    "LINK_COPIED_DETAIL": "The link has been copied to clipboard"
+  }
+}

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/services/storage.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'fc-admin-profile-modal',
@@ -13,7 +14,11 @@ export class AdminProfileComponent implements OnInit {
   @Output('onClose') onClose: any = new EventEmitter<void>();
   @Output('onChangeName') onChangeName: any = new EventEmitter<void>();
 
-  constructor(private router: Router, private storageSVC:StorageService) {}
+  constructor(
+    private router: Router, 
+    private storageSVC:StorageService,
+    public translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
     console.log(this.userActive);

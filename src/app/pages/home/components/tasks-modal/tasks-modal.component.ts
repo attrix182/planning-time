@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TaskModel } from 'src/app/models/task.model';
 import { AiService } from 'src/app/services/ai.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { TranslateService } from '@ngx-translate/core';
 import * as marked from 'marked';
 import * as convert from 'xml-js';
 @Component({
@@ -15,7 +16,7 @@ export class TasksModalComponent implements OnInit {
   taskXML: string = '';
   task: TaskModel;
   tasks: any = []; //TaskModel[] = [];
-  getId = this.router.url.split('/')[2].trim();
+  getId: string;
   selected: any = {};
   showDor = false;
   @Input() event: any = {};
@@ -26,7 +27,24 @@ export class TasksModalComponent implements OnInit {
   iaResponse: any;
   showIAmodal = false;
 
-  constructor(private storageSVC: StorageService, private router: Router, private AIservice: AiService) {}
+  constructor(
+    private storageSVC: StorageService, 
+    private router: Router, 
+    private AIservice: AiService,
+    public translate: TranslateService
+  ) {
+    this.parseUrl();
+  }
+
+  private parseUrl(): void {
+    const urlSegments = this.router.url.split('/').filter(segment => segment);
+    // Si el primer segmento es un idioma, el ID está en el tercer segmento
+    if (urlSegments.length > 0 && ['es', 'en'].includes(urlSegments[0])) {
+      this.getId = (urlSegments[2] || '').trim();
+    } else {
+      this.getId = (urlSegments[1] || '').trim();
+    }
+  }
 
   ngOnInit(): void {
     this.getTasks();

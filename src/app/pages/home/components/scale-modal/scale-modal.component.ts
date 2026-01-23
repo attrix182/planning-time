@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/services/storage.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'fc-scale-modal',
@@ -9,7 +10,7 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class ScaleModalComponent implements OnInit {
   tasks: any = []; //TaskModel[] = [];
-  getId = this.router.url.split('/')[2].trim();
+  getId: string;
   scaleInput: string = '';
   optionsFormatted: string = '';
   presets: any[] = [
@@ -19,7 +20,23 @@ export class ScaleModalComponent implements OnInit {
   @Input() event: any = {};
   @Output('onClose') onClose: any = new EventEmitter<void>();
 
-  constructor(private storageSVC: StorageService, private router: Router) {}
+  constructor(
+    private storageSVC: StorageService, 
+    private router: Router,
+    public translate: TranslateService
+  ) {
+    this.parseUrl();
+  }
+
+  private parseUrl(): void {
+    const urlSegments = this.router.url.split('/').filter(segment => segment);
+    // Si el primer segmento es un idioma, el ID está en el tercer segmento
+    if (urlSegments.length > 0 && ['es', 'en'].includes(urlSegments[0])) {
+      this.getId = (urlSegments[2] || '').trim();
+    } else {
+      this.getId = (urlSegments[1] || '').trim();
+    }
+  }
 
   ngOnInit(): void {
     //remove comas

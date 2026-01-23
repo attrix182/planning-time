@@ -2,17 +2,17 @@
 
 <section class="create-form">
   <div class="card">
-    <div class="title">Crear una sesión</div>
-    <div class="subtitle">¿Como se llama tu equipo?</div>
+    <div class="title">{{ 'CREATE_FORM.TITLE' | translate }}</div>
+    <div class="subtitle">{{ 'CREATE_FORM.SUBTITLE' | translate }}</div>
 
     <form [formGroup]="formGroup" class="p-fluid p-grid">
       <!-- Equipo -->
 
-      <input type="text" placeholder="Nombre del equipo" pInputText type="text" formControlName="team" />
+      <input type="text" [placeholder]="'CREATE_FORM.TEAM_PLACEHOLDER' | translate" pInputText type="text" formControlName="team" />
     </form>
 
     <div class="buttons mt-4">
-      <button pButton class="p-button-raised p-button-primary" (click)="back.emit()">Volver</button>
+      <button pButton class="p-button-raised p-button-primary" (click)="back.emit()">{{ 'CREATE_FORM.BACK' | translate }}</button>
       <button
         pButton
         class="p-button-raised p-button-primary"
@@ -26,7 +26,7 @@
           styleClass="custom-spinner"
           strokeWidth="8"
         ></p-progressSpinner>
-        Crear
+        {{ 'CREATE_FORM.CREATE' | translate }}
       </button>
     </div>
   </div>

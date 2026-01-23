@@ -1,7 +1,7 @@
 <section class="tasks-modal">
   <div class="tasks-modal_card">
     <div class="tasks-modal_card_header">
-      <div class="tasks-modal_card_header_title">Cambiar escala de votación</div>
+      <div class="tasks-modal_card_header_title">{{ 'SCALE_MODAL.TITLE' | translate }}</div>
       <div class="tasks-modal_card_header_actions"></div>
     </div>
     <div class="tasks-modal_card_body">
@@ -9,7 +9,7 @@
         <!-- 
         <div class="tasks-modal_card_body_options">Escala actual: {{ optionsFormatted }}</div> -->
         <div class="tasks-modal_card_body_cards">
-          <div>Escalas sugeridas:</div>
+          <div>{{ 'SCALE_MODAL.SUGGESTED_SCALES' | translate }}</div>
           <div
             [pTooltip]="option.name"
             class="tasks-modal_card_body_cards_card"
@@ -24,14 +24,14 @@
 
         <input
           style="margin-right: 10px"
-          pTooltip="Puedes personalizar la escala, Ej: 1,2,3,🚀,🍕"
+          [pTooltip]="'SCALE_MODAL.SCALE_TOOLTIP' | translate"
           class="tasks-modal_card_header_actions-input"
-          placeholder="Sigue el formato: 1,2,3,6"
+          [placeholder]="'SCALE_MODAL.SCALE_PLACEHOLDER' | translate"
           pInputText
           [(ngModel)]="scaleInput"
           type="text"
         />
-        <button pButton pRipple label="Cambiar" (click)="setScale()" class="p-button-raised p-button-primary"></button>
+        <button pButton pRipple [label]="'SCALE_MODAL.CHANGE' | translate" (click)="setScale()" class="p-button-raised p-button-primary"></button>
       </div>
 
       <div class="options-box-demo">
@@ -43,7 +43,7 @@
         <button
           pButton
           pRipple
-          label="Cancelar"
+          [label]="'SCALE_MODAL.CANCEL' | translate"
           (click)="closeModal()"
           class="p-button-raised p-button-outlined p-button-primary"
         ></button>

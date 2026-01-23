@@ -3,6 +3,7 @@ import { FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators } from '@an
 import { MessageService } from 'primeng/api';
 import { StorageService } from 'src/app/services/storage.service';
 import { FormValidator } from 'src/app/shared/primeng/form.validator';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'fc-create-form',
@@ -18,6 +19,7 @@ export class CreateFormComponent extends FormValidator implements OnInit {
     private fb: UntypedFormBuilder,
     private messageService: MessageService,
     private storageSvc: StorageService,
+    public translate: TranslateService
   ) {
     super();
   }
@@ -44,13 +46,17 @@ export class CreateFormComponent extends FormValidator implements OnInit {
       .insertCustomID('events', form.id, form)
       .then((res) => {
         this.isLoading = false;
-        this.messageService.add({ severity: 'success', summary: '¡Creada!', detail: 'Sesión creada con éxito' });
+        this.translate.get('CREATE_FORM.SUCCESS_MESSAGE').subscribe(msg => {
+          this.messageService.add({ severity: 'success', summary: msg, detail: msg });
+        });
         this.formGroup.reset();
         this.nextStepEvent.emit(form.id);
       })
       .catch((err) => {
         this.isLoading = false;
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al crear la sesión' });
+        this.translate.get('CREATE_FORM.ERROR_MESSAGE').subscribe(msg => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
+        });
       });
   }
 }

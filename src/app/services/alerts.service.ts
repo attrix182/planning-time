@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
-  constructor() {}
+  constructor(private translate: TranslateService) {}
 
   alertBottom(icon: SweetAlertIcon, text: string) {
     const Toast = Swal.mixin({
@@ -69,35 +70,39 @@ export class AlertService {
 
   confirmAlert(messagge:string) {
     return new Promise((resolve) => {
-      Swal.fire({
-        title: messagge,
-        showDenyButton: true,
-        reverseButtons: true,
-        confirmButtonText: 'Si',
-        denyButtonText: `Cancelar`
-      }).then((result) => {
-        if (result.isConfirmed) {
-          resolve(true);
-        }
-        resolve(false);
+      this.translate.get(['COMMON.YES', 'COMMON.CANCEL']).subscribe(translations => {
+        Swal.fire({
+          title: messagge,
+          showDenyButton: true,
+          reverseButtons: true,
+          confirmButtonText: translations['COMMON.YES'],
+          denyButtonText: translations['COMMON.CANCEL']
+        }).then((result) => {
+          if (result.isConfirmed) {
+            resolve(true);
+          }
+          resolve(false);
+        });
       });
     });
   }
 
   promptAlert() {
     return new Promise((resolve) => {
-      Swal.fire({
-        title: 'Ingrese su nombre',
-        input: 'text',
-        inputAttributes: {
-          autocapitalize: 'off'
-        },
-        showCancelButton: false,
-        confirmButtonText: 'Ingresar',
-        showLoaderOnConfirm: true,
-        allowOutsideClick: false
-      }).then((name) => {
-        resolve(name);
+      this.translate.get(['ALERTS.ENTER_NAME', 'ALERTS.ENTER']).subscribe(translations => {
+        Swal.fire({
+          title: translations['ALERTS.ENTER_NAME'],
+          input: 'text',
+          inputAttributes: {
+            autocapitalize: 'off'
+          },
+          showCancelButton: false,
+          confirmButtonText: translations['ALERTS.ENTER'],
+          showLoaderOnConfirm: true,
+          allowOutsideClick: false
+        }).then((name) => {
+          resolve(name);
+        });
       });
     });
   }

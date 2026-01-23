@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { EventSesion } from 'src/app/models/event.model';
 import { StorageService } from 'src/app/services/storage.service';
 import { Section } from 'src/app/types/section.type';
+import { LanguageService } from 'src/app/services/language.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'fc-home',
   templateUrl: './home.component.html',
@@ -36,14 +38,40 @@ export class HomeComponent implements OnInit {
   showParticipate: boolean = false;
   succesfullyCreate: boolean = false;
   isLoading: boolean = false;
-  actualSection: Section = this.router.url.split('/')[1] as Section;
+  actualSection: Section;
   fullUrl: string = this.router.url;
   event: EventSesion;
-  eventID: string = this.fullUrl.split('/')[2];
-  constructor(private storageSvc: StorageService, private router: Router) {}
+  eventID: string;
+  currentLanguage: string = 'es';
+  languages: { code: string; label: string }[] = [
+    { code: 'es', label: 'Español' },
+    { code: 'en', label: 'English' }
+  ];
+
+  constructor(
+    private storageSvc: StorageService, 
+    private router: Router,
+    private languageService: LanguageService,
+    public translate: TranslateService
+  ) {
+    this.parseUrl();
+    this.currentLanguage = this.languageService.getCurrentLanguage();
+  }
 
   ngOnInit(): void {
     this.checkUrl();
+  }
+
+  private parseUrl(): void {
+    const urlSegments = this.router.url.split('/').filter(segment => segment);
+    // Si el primer segmento es un idioma, ajustar los índices
+    if (urlSegments.length > 0 && ['es', 'en'].includes(urlSegments[0])) {
+      this.actualSection = (urlSegments[1] || '') as Section;
+      this.eventID = urlSegments[2] || '';
+    } else {
+      this.actualSection = (urlSegments[0] || '') as Section;
+      this.eventID = urlSegments[1] || '';
+    }
   }
 
   toggleShowCreate() {
@@ -55,7 +83,13 @@ export class HomeComponent implements OnInit {
   }
 
   goToLanding() {
-    this.router.navigateByUrl('/about/landing');
+    const lang = this.languageService.getCurrentLanguage();
+    this.router.navigateByUrl(`/${lang}/about/landing`);
+  }
+
+  changeLanguage(lang: string): void {
+    this.languageService.setLanguage(lang, true);
+    this.currentLanguage = lang;
   }
 
   checkUrl() {

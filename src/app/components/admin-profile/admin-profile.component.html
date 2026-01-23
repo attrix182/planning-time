@@ -1,27 +1,27 @@
 <section class="admin-modal">
   <div class="admin-modal_card">
     <div class="admin-modal_card_header">
-      <div class="admin-modal_card_header_title"><i class="pi pi-user"></i> &nbsp; Administra tu perfil</div>
+      <div class="admin-modal_card_header_title"><i class="pi pi-user"></i> &nbsp; {{ 'ADMIN_PROFILE.TITLE' | translate }}</div>
       <div class="admin-modal_card_header_actions"></div>
     </div>
     <div class="admin-modal_card_body">
       <div>
-        Tu nombre actual es: <strong>{{ userActive?.name }}</strong>
+        {{ 'ADMIN_PROFILE.CURRENT_NAME' | translate }} <strong>{{ userActive?.name }}</strong>
       </div>
 
       <button
         pButton
         pRipple
-        label="Cambiar tu nombre"
+        [label]="'ADMIN_PROFILE.CHANGE_NAME' | translate"
         (click)="changeName()"
         class="p-button-raised p-button-primary"
       ></button>
 
       <div
         class="card flex justify-content-center admin-modal_card_body_facilitator"
-        pTooltip="Siendo facilitador puedes mostrar/ocultar resultados, reiniciar la sesión y eliminar participantes"
+        [pTooltip]="'ADMIN_PROFILE.FACILITATOR_TOOLTIP' | translate"
       >
-        <label>Soy facilitador</label>
+        <label>{{ 'ADMIN_PROFILE.FACILITATOR_LABEL' | translate }}</label>
         <p-inputSwitch
           class="admin-modal_card_body_facilitator-switch"
           [(ngModel)]="userActive.facilitator"
@@ -33,14 +33,14 @@
         <!--         <button
           pButton
           pRipple
-          label="Cancelar"
+          [label]="'COMMON.CANCEL' | translate"
           (click)="closeModal()"
           class="p-button-raised p-button-outlined p-button-primary"
         ></button> -->
         <button
           pButton
           pRipple
-          label="Aceptar"
+          [label]="'COMMON.ACCEPT' | translate"
           (click)="saveAndClose()"
           class="p-button-raised p-button-primary"
         ></button>

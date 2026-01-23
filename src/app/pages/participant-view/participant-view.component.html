@@ -4,7 +4,7 @@
   <aside class="left-icon">
     <button
       (click)="toggleAdminProfileModal()"
-      pTooltip="Administra tu perfil"
+      [pTooltip]="'PARTICIPANT_VIEW.MANAGE_PROFILE' | translate"
       pButton
       pRipple
       type="button"
@@ -16,10 +16,10 @@
   <aside class="right-icon m-2">
     <button
       (click)="toggleTasksModal()"
-      pTooltip="Importa tareas desde JIRA"
+      [pTooltip]="'PARTICIPANT_VIEW.IMPORT_TASKS' | translate"
       pButton
       pRipple
-      label="Administrar tareas"
+      [label]="'TASKS_MODAL.MANAGE_TASKS' | translate"
       type="button"
       icon="pi pi-book"
       class="p-button-primary p-button-rounded p-button-outlined mt-2"
@@ -29,7 +29,7 @@
   <aside class="rigth-icon-mobile" id="mobile" *ngIf="userActive?.facilitator">
     <button
       (click)="toggleShowActions()"
-      pTooltip="Mostrar acciones"
+      [pTooltip]="'PARTICIPANT_VIEW.SHOW_ACTIONS' | translate"
       pButton
       pRipple
       type="button"
@@ -49,12 +49,12 @@
       class="p-button-raised p-button-primary"
       (click)="presentResults()"
     >
-      Mostrar
+      {{ 'PARTICIPANT_VIEW.SHOW' | translate }}
       <i class="ml-2 pi pi-eye"></i>
     </button>
 
     <button *ngIf="showResults" pButton pRipple class="p-button-raised p-button-primary" (click)="hideResults()">
-      Ocultar
+      {{ 'PARTICIPANT_VIEW.HIDE' | translate }}
       <i class="ml-2 pi pi-eye-slash"></i>
     </button>
 
@@ -65,7 +65,7 @@
       class="p-button-raised p-button-primary"
       (click)="restart()"
     >
-      Reiniciar
+      {{ 'PARTICIPANT_VIEW.RESTART' | translate }}
       <i class="ml-2 pi pi-refresh"></i>
     </button>
   </ng-container>
@@ -82,7 +82,7 @@
       class="p-button-raised p-button-primary"
       (click)="presentResults()"
     >
-      Mostrar resultados
+      {{ 'PARTICIPANT_VIEW.SHOW_RESULTS' | translate }}
       <i class="ml-2 pi pi-eye"></i>
     </button>
 
@@ -93,7 +93,7 @@
       class="p-button-raised p-button-primary"
       (click)="hideResults()"
     >
-      Ocultar resultados
+      {{ 'PARTICIPANT_VIEW.HIDE_RESULTS' | translate }}
       <i class="ml-2 pi pi-eye-slash"></i>
     </button>
 
@@ -105,20 +105,20 @@
       class="p-button-raised p-button-primary"
       (click)="restart()"
     >
-      Reiniciar
+      {{ 'PARTICIPANT_VIEW.RESTART' | translate }}
       <i class="ml-2 pi pi-refresh"></i>
     </button>
 
     <button
     [disabled]="!(results.length == 0)"
-    [pTooltip]="!(results.length == 0) ? 'No puedes cambiar la escala si hay respuestas': 'Puedes cambiar la escala de votación'"
+    [pTooltip]="!(results.length == 0) ? ('PARTICIPANT_VIEW.CANT_CHANGE_SCALE' | translate) : ('PARTICIPANT_VIEW.CAN_CHANGE_SCALE' | translate)"
     pButton
     pRipple
     class="p-button-raised p-button-primary"
     *ngIf="userActive?.facilitator"
     (click)="toggleAdminScaleModal()"
   >
-    Cambiar escala
+    {{ 'PARTICIPANT_VIEW.CHANGE_SCALE' | translate }}
     <i class="ml-2 pi pi-chart-bar"></i>
   </button>
   </div>
@@ -126,7 +126,7 @@
   <div class="users-box" *ngIf="!loading && activeUsers">
     <div
       tooltipPosition="top"
-      [pTooltip]="userActive?.facilitator ? 'Eliminar participante' : ''"
+      [pTooltip]="userActive?.facilitator ? ('PARTICIPANT_VIEW.DELETE_PARTICIPANT' | translate) : ''"
       (click)="userActive?.facilitator && deleteUser(user)"
       *ngFor="let user of activeUsers"
       class="card-user"
@@ -148,7 +148,7 @@
       </div>
     </div>
 
-    <div class="title intro-text text-dark p-4" *ngIf="!showResults">¡Elije una carta!</div>
+    <div class="title intro-text text-dark p-4" *ngIf="!showResults">{{ 'PARTICIPANT_VIEW.CHOOSE_CARD' | translate }}</div>
 
     <section *ngIf="showResults" class="text-center">
       <div *ngFor="let res of results">
@@ -157,7 +157,7 @@
           <div class="results-item-vote">{{ res.vote }}</div>
         </article>
       </div>
-      <div class="promedio" *ngIf="promedio">Promedio: {{ promedio.toFixed(2) }}</div>
+      <div class="promedio" *ngIf="promedio">{{ 'PARTICIPANT_VIEW.AVERAGE' | translate }} {{ promedio.toFixed(2) }}</div>
     </section>
   </div>
 

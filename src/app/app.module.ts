@@ -21,6 +21,9 @@ import { DorDefinitionComponent } from './components/dor-definition/dor-definiti
 import { MarkdownModule, MarkdownService } from 'ngx-markdown';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader, TRANSLATE_HTTP_LOADER_CONFIG } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -47,9 +50,32 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
     BrowserAnimationsModule,
     QrCodeModule,
     MarkdownModule.forRoot(),
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory
+      },
+      defaultLanguage: 'es'
+    }),
 
   ],
-  providers: [MarkdownService, provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), provideFirestore(() => getFirestore())],
+  providers: [
+    MarkdownService, 
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), 
+    provideFirestore(() => getFirestore()),
+    {
+      provide: TRANSLATE_HTTP_LOADER_CONFIG,
+      useValue: {
+        prefix: './assets/i18n/',
+        suffix: '.json'
+      }
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function HttpLoaderFactory(): TranslateHttpLoader {
+  return new TranslateHttpLoader();
+}

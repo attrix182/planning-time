@@ -2,22 +2,22 @@
 
 <section class="create-form">
   <div class="card">
-    <div class="title">Participar</div>
-    <div class="subtitle">Ingrese el código de la sesión</div>
+    <div class="title">{{ 'PARTICIPATE.TITLE' | translate }}</div>
+    <div class="subtitle">{{ 'PARTICIPATE.SUBTITLE' | translate }}</div>
     <span class="p-input-icon-right">
       <i class="pi pi-search"></i>
-      <input type="text" placeholder="Código.." pInputText [(ngModel)]="sesionId" />
+      <input type="text" [placeholder]="'PARTICIPATE.CODE_PLACEHOLDER' | translate" pInputText [(ngModel)]="sesionId" />
     </span>
 
     <div class="buttons mt-4 mb-2">
-      <button pButton class="p-button-raised p-button-primary" (click)="goBack.emit()">Volver</button>
+      <button pButton class="p-button-raised p-button-primary" (click)="goBack.emit()">{{ 'PARTICIPATE.BACK' | translate }}</button>
       <button
         [disabled]="sesionId?.length > 5 ? false : true"
         pButton
         class="p-button-raised p-button-primary"
         (click)="goToSesion()"
       >
-        Ingresar
+        {{ 'PARTICIPATE.ENTER' | translate }}
       </button>
     </div>
   </div>

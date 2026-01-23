@@ -15,6 +15,7 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 const PrimeNGModules = [
   InputTextModule,
   StepsModule,
@@ -30,7 +31,8 @@ const PrimeNGModules = [
   InputSwitchModule,
   InputTextareaModule,
   DynamicDialogModule,
-  DialogModule
+  DialogModule,
+  DropdownModule
 ];
 
 @NgModule({

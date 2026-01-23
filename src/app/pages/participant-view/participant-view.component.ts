@@ -7,6 +7,8 @@ import { TaskModel } from 'src/app/models/task.model';
 import { AlertService } from 'src/app/services/alerts.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { FormValidator } from 'src/app/shared/primeng/form.validator';
+import { LanguageService } from 'src/app/services/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'fc-participant-view',
@@ -15,7 +17,7 @@ import { FormValidator } from 'src/app/shared/primeng/form.validator';
 })
 export class ParticipantViewComponent extends FormValidator implements OnInit {
   loading: boolean = false;
-  getId = this.router.url.split('/')[2].trim();
+  getId: string;
   event: EventSesion;
   override formGroup: any;
   userName: any = undefined;
@@ -37,10 +39,23 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
     private router: Router,
     private fb: UntypedFormBuilder,
     private alertService: AlertService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private languageService: LanguageService,
+    public translate: TranslateService
   ) {
     super();
     this.loading = true;
+    this.parseUrl();
+  }
+
+  private parseUrl(): void {
+    const urlSegments = this.router.url.split('/').filter(segment => segment);
+    // Si el primer segmento es un idioma, el ID está en el tercer segmento
+    if (urlSegments.length > 0 && ['es', 'en'].includes(urlSegments[0])) {
+      this.getId = (urlSegments[2] || '').trim();
+    } else {
+      this.getId = (urlSegments[1] || '').trim();
+    }
   }
 
   ngOnInit(): void {
@@ -66,7 +81,9 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
 
   cantVote() {
     this.messageService.clear();
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No puedes cambiar tu nombre si votaste' });
+    this.translate.get('PARTICIPANT_VIEW.CANT_CHANGE_NAME').subscribe(msg => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
+    });
   }
 
   getUser() {
@@ -117,7 +134,8 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
 
   validate() {
     if (!this.event) {
-      this.router.navigateByUrl('');
+      const lang = this.languageService.getCurrentLanguage();
+      this.router.navigateByUrl(`/${lang}`);
     }
   }
 
@@ -173,17 +191,21 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
 
   cantVoteShowResults() {
     this.messageService.clear();
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: 'No puedes votar mientras los resultados son visibles'
+    this.translate.get('PARTICIPANT_VIEW.CANT_VOTE_SHOW_RESULTS').subscribe(msg => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: msg
+      });
     });
     return;
   }
 
   areVotedMsg() {
     this.messageService.clear();
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No puedes cambiar tu voto' });
+    this.translate.get('PARTICIPANT_VIEW.CANT_CHANGE_VOTE').subscribe(msg => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
+    });
   }
 
   getResults() {
@@ -205,7 +227,9 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
   presentResults() {
     if (this.results.length == 0) {
       this.messageService.clear();
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Aún no hay resultados para mostrar' });
+      this.translate.get('PARTICIPANT_VIEW.NO_RESULTS_YET').subscribe(msg => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
+      });
       return;
     }
     this.event.resultsVisibility = true;
@@ -260,15 +284,17 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
 
   restart() {
     if (this.results.length == 0) return;
-    this.alertService.confirmAlert('¿Desea reiniciar la votación?').then((confirm) => {
-      if (confirm) {
-        this.hideResults();
-        this.storageSvc.deleteCollection(this.getId.trim()).then(() => {
-          this.restartAnswered();
-          this.getInfo();
-          this.optionSelected = undefined;
-        });
-      }
+    this.translate.get('PARTICIPANT_VIEW.RESTART_VOTING').subscribe(msg => {
+      this.alertService.confirmAlert(msg).then((confirm) => {
+        if (confirm) {
+          this.hideResults();
+          this.storageSvc.deleteCollection(this.getId.trim()).then(() => {
+            this.restartAnswered();
+            this.getInfo();
+            this.optionSelected = undefined;
+          });
+        }
+      });
     });
   }
 
@@ -290,10 +316,12 @@ export class ParticipantViewComponent extends FormValidator implements OnInit {
 
   deleteUser(user) {
     if (this.results.length > 0) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'No puedes eliminar a un usuario si hay votos'
+      this.translate.get('PARTICIPANT_VIEW.CANT_DELETE_USER').subscribe(msg => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: msg
+        });
       });
       return;
     }

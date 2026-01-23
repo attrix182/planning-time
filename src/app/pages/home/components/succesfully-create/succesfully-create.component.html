@@ -3,32 +3,32 @@
 <section class="create-form">
   <div class="card">
     <span class="status" [ngClass]="event.active ? 'active' : 'deactive'">{{
-      event.active ? 'Activado' : 'Desactivado'
+      event.active ? ('SUCCESSFULLY_CREATE.ACTIVATED' | translate) : ('SUCCESSFULLY_CREATE.DEACTIVATED' | translate)
     }}</span>
     <i
       class="pi pi-question-circle icon"
-      pTooltip="Puedes compartir el QR o el Link, para que otros puedan participar"
+      [pTooltip]="'SUCCESSFULLY_CREATE.SHARE_TOOLTIP' | translate"
     ></i>
-    <div class="title">Datos de la sesión</div>
+    <div class="title">{{ 'SUCCESSFULLY_CREATE.SESSION_DATA' | translate }}</div>
     {{ event.eventDate }}
 
-    <h2>Equipo: {{ event.team }}</h2>
+    <h2>{{ 'SUCCESSFULLY_CREATE.TEAM' | translate }} {{ event.team }}</h2>
 
 
     <qr-code [value]="this.url" [size]="200" *ngIf="this.url"></qr-code>
-    <div id="eventLink" [ngClass]="copied ? 'copied' : ''" class="subtitle" pTooltip="Puedes utilizar este codigo en la parte Participar, de la home">
-      Código: {{ event.id }}
+    <div id="eventLink" [ngClass]="copied ? 'copied' : ''" class="subtitle" [pTooltip]="'SUCCESSFULLY_CREATE.CODE_TOOLTIP' | translate">
+      {{ 'SUCCESSFULLY_CREATE.CODE' | translate }} {{ event.id }}
     </div>
 
 
     <div class="buttons mt-4 mb-4">
-      <button pButton class="p-button-raised p-button-primary" (click)="copyLink()">Copiar link</button>
+      <button pButton class="p-button-raised p-button-primary" (click)="copyLink()">{{ 'SUCCESSFULLY_CREATE.COPY_LINK' | translate }}</button>
       <button
         pButton
         class="p-button-raised p-button-primary"
         (click)="goToPanel()"
       >
-        Ir al tablero
+        {{ 'SUCCESSFULLY_CREATE.GO_TO_BOARD' | translate }}
       </button>
     </div>
   </div>

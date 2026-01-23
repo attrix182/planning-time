@@ -1,5 +1,17 @@
-<div class="landing-icon" pTooltip="Información sobre la web">
+<div class="landing-icon" [pTooltip]="'HOME.INFO_TOOLTIP' | translate">
   <i (click)="goToLanding()" class="pi pi-info-circle"></i>
+</div>
+
+<div class="language-selector">
+  <p-dropdown 
+    [options]="languages" 
+    [(ngModel)]="currentLanguage" 
+    optionLabel="label" 
+    optionValue="code"
+    (onChange)="changeLanguage($event.value)"
+    [style]="{'width': '150px'}"
+    placeholder="{{ 'COMMON.LANGUAGE' | translate }}">
+  </p-dropdown>
 </div>
 
 <div class="home-page">
@@ -8,13 +20,13 @@
     *ngIf="!showCreate && !succesfullyCreate && !showParticipate && !isLoading"
     [@exitAnimationY]
   >
-    <h2 class="title text-center">Bienvenido a Planning Time</h2>
+    <h2 class="title text-center">{{ 'HOME.WELCOME' | translate }}</h2>
     <div class="subtitle">
-      ¿Que quieres hacer?
+      {{ 'HOME.WHAT_DO' | translate }}
       <div class="buttons">
-        <button pButton pRipple class="p-button-raised p-button-primary" (click)="toggleShowCreate()">Crear</button>
+        <button pButton pRipple class="p-button-raised p-button-primary" (click)="toggleShowCreate()">{{ 'HOME.CREATE' | translate }}</button>
         <button pButton pRipple class="p-button-raised p-button-primary" (click)="toggleShowParticipate()">
-          Participar
+          {{ 'HOME.PARTICIPATE' | translate }}
         </button>
       </div>
     </div>
